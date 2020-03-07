@@ -7,6 +7,6 @@
 
 int main() {
     #ifdef DEBUG
-        Test::debugNounExtractor();
+        Test::debugAll();
     #endif
 }

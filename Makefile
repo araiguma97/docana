@@ -1,18 +1,18 @@
 #vim:set noexpandtab :
 
-PROGRAM = nounex
-OBJS = main.o test.o NounExtractor.o
+PROGRAM = docana
+OBJS = main.o test.o NounExtractor.o DocumentVector.o DocumentElement.o BowVectorizer.o
 
-CC = gcc
+CC = g++
 CFLAGS = -Wall -O2 -g
 
-.SUFFIXES: .cpp .o
+%.o: %.cpp
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(PROGRAM): $(OBJS)
 	$(CC) -o $(PROGRAM) `mecab-config --cflags` $^ `mecab-config --libs`
 
-.cpp.o:
-	$(CC) $(CFLAGS) -c $<
+%.o: %.h
 
 .PHONY: clean
 clean:
