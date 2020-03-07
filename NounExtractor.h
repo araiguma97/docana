@@ -1,9 +1,9 @@
-#include <mecab.h>
-
-#define MAX_NOUN_NUM 1024 
-#define MAX_NOUN_LEN 1024
+#include <string>
+#include <vector>
 
 class NounExtractor {
 public:
-    void extractNoun(const char* input, char (*output)[MAX_NOUN_LEN + 1]);
+    std::vector<std::string> extractNoun(const std::string& str);
+private:
+    std::vector<std::string> split(const std::string& str, const char delim);
 };

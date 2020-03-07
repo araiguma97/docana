@@ -1,41 +1,36 @@
 #include "NounExtractor.h"
 
-#include <string.h>
 #include <mecab.h>
 
-#define MAX_FEATURE_LEN 128
+std::vector<std::string> NounExtractor::extractNoun(const std::string& str) {
+    std::vector<std::string> nouns;
 
-void NounExtractor::extractNoun(const char* input, char (*output)[MAX_NOUN_LEN + 1]) {
     MeCab::Tagger* tagger = MeCab::createTagger("");
-    const MeCab::Node* node = tagger->parseToNode(input);
-    int nounCnt = 0;
+    const MeCab::Node* node = tagger->parseToNode(str.c_str());
     for (; node; node = node->next) {
-        if (nounCnt >= MAX_NOUN_NUM) {
-            break;
-        }
-        char feature[MAX_FEATURE_LEN + 1];
-        if (strstr(node->feature, "名詞,") != NULL) {
-            strncpy(feature, node->feature, MAX_FEATURE_LEN + 1);
-            int commaCnt = 0; 
-            int nounCharCnt = 0;
-            for (int i = 0; i < MAX_FEATURE_LEN; i++) {
-                if (feature[i] == ',') {
-                    if (commaCnt >= 7) {
-                        break;
-                    }  
-                    commaCnt++;
-                } else {
-                    if (commaCnt == 6) {
-                        if (nounCharCnt >= MAX_NOUN_LEN) {
-                            break;
-                        }
-                        output[nounCnt][nounCharCnt] = feature[i];
-                        nounCharCnt++;
-                    }
-                }
-            }
-            nounCnt++;
+        std::vector<std::string> feature_values = split(node->feature, ',');
+        if (feature_values[0] == "名詞") {
+            nouns.push_back(feature_values[6]);
         }
     }
     delete tagger;
+    
+    return nouns;
 }    
+
+std::vector<std::string> NounExtractor::split(const std::string& str, const char delim) {
+    std::vector<std::string> values;
+   
+    std::string::size_type offset = 0;
+    while (1) {
+        std::string::size_type pos = str.find(delim, offset);
+        if (pos == std::string::npos) {
+           values.push_back(str.substr(offset)); 
+           break;
+        }
+        values.push_back(str.substr(offset, pos - offset));
+        offset = pos + 1;
+    }
+    
+    return values; 
+}
