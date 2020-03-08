@@ -1,12 +1,11 @@
 #include "test.h"
 #include "NounExtractor.h"
 #include "BowVectorizer.h"
+#include "DocumentElement.h"
 
 #include <iostream>
 
 bool Test::debugAll() {
-	std::cout << "[START] All" << std::endl;
-
     if (! debugNounExtractor()) {
         return false;
     }
@@ -14,7 +13,7 @@ bool Test::debugAll() {
         return false;
     }
         
-	std::cout << "[OK] All" << std::endl;
+	std::cout << "All tests were passed" << std::endl;
 	return true;
 }
 
@@ -24,12 +23,13 @@ bool Test::debugNounExtractor() {
     std::vector<std::string> expecteds = {"私", "りんご", "好き", "たかし", "バナナ", "好き"}; 
     std::vector<std::string> actuals = ne.extractNoun("私はりんごが好きですが、たかしはバナナが好きです");
 	
+    std::cout << "[START   ] NounExtractor" << std::endl;
 	if (! assertStrVecEq(expecteds, actuals)) {
-		std::cout << "\t[NG] NounExtractor" << std::endl;
+		std::cout << "[      NG] NounExtractor" << std::endl;
 		return false;
 	}
 
-	std::cout << "\t[OK] NounExtractor" << std::endl;
+	std::cout << "[      OK] NounExtractor" << std::endl;
 	return true;
 }
 
@@ -44,17 +44,27 @@ bool Test::debugBowVectorizer() {
     expecteds->add("好き", 2);
     DocumentVector* actuals = bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです");    
     
-	if (! assertDocVecEq(expecteds, actuals)) {
-		std::cout << "\t[NG] BowVectorizer" << std::endl;
-        delete actuals;
+    std::cout << "[START   ] BowVectorizer" << std::endl;
+	if (! assertDocVecEq(*expecteds, *actuals)) {
+		std::cout << "[      NG] BowVectorizer" << std::endl;
         delete expecteds;
 		return false;
 	}
 
-	std::cout << "\t[OK] BowVectorizer" << std::endl;
+	std::cout << "[      OK] BowVectorizer" << std::endl;
     delete expecteds;
     return true;
 }
+
+bool Test::assertDoubleEq(double expected, double actual) {
+    if (expected != actual) {
+        std::cout << "double NOT equal. expeted=" << expected << ", actual=" << actual << std::endl;
+        return false;
+    }    
+
+    return true;
+}
+    
 
 bool Test::assertStrEq(std::string expected, std::string actual) {
     if (expected != actual) {
@@ -87,11 +97,18 @@ bool Test::assertStrVecEq(std::vector<std::string> expecteds, std::vector<std::s
     return true;
 }
 
-bool Test::assertDocVecEq(DocumentVector* expecteds, DocumentVector* actuals) {
-    if (expecteds->equals(actuals)) {
-        std::cout << "DocumentVector NOT eaual." << std::endl;
+bool Test::assertDocVecEq(DocumentVector expecteds, DocumentVector actuals) {
+    if (! assertSizeTypeEq(expecteds.size(), actuals.size())) {
         return false;
     }
+    for (std::string::size_type i = 0; i < expecteds.size(); i++) {
+        if (! assertStrEq(expecteds.get(i)->noun, actuals.get(i)->noun)) {
+            return false;
+        }
+        if (! assertDoubleEq(expecteds.get(i)->score, actuals.get(i)->score)) {
+            return false;
+        }
+    } 
    
     return true; 
 }
