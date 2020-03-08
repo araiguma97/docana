@@ -13,7 +13,7 @@ bool Test::debugAll() {
         return false;
     }
         
-	std::cout << "All tests were passed" << std::endl;
+	std::cout << "All tests were passed." << std::endl;
 	return true;
 }
 
@@ -42,7 +42,8 @@ bool Test::debugBowVectorizer() {
     expecteds.add("たかし", 1);
     expecteds.add("バナナ", 1);
     expecteds.add("好き", 2);
-    DocumentVector actuals = *(bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです"));    
+    DocumentVector* actuals_ptr = bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです");
+    DocumentVector actuals = *actuals_ptr;    
     
     std::cout << "[START   ] BowVectorizer" << std::endl;
 	if (! assertDocVecEq(expecteds, actuals)) {
@@ -64,7 +65,7 @@ bool Test::assertDoubleEq(double expected, double actual) {
 }
     
 
-bool Test::assertStrEq(std::string expected, std::string actual) {
+bool Test::assertStrEq(const std::string& expected, const std::string& actual) {
     if (expected != actual) {
         std::cout << "string NOT equal. expeted=" << expected << ", actual=" << actual << std::endl;
         return false;
@@ -82,7 +83,7 @@ bool Test::assertSizeTypeEq(std::string::size_type expected, std::string::size_t
     return true;
 }
 
-bool Test::assertStrVecEq(std::vector<std::string> expecteds, std::vector<std::string> actuals) {
+bool Test::assertStrVecEq(const std::vector<std::string>& expecteds, const std::vector<std::string>& actuals) {
     if (! assertSizeTypeEq(expecteds.size(), actuals.size())) {
         return false;
     }
@@ -95,7 +96,7 @@ bool Test::assertStrVecEq(std::vector<std::string> expecteds, std::vector<std::s
     return true;
 }
 
-bool Test::assertDocVecEq(DocumentVector expecteds, DocumentVector actuals) {
+bool Test::assertDocVecEq(const DocumentVector& expecteds, const DocumentVector& actuals) {
     if (! assertSizeTypeEq(expecteds.size(), actuals.size())) {
         return false;
     }

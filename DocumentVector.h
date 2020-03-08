@@ -8,8 +8,8 @@
 class DocumentVector {
 public:
     void add(std::string noun, double score);
-    std::string::size_type size();
-    DocumentElement* get(int index);
+    std::string::size_type size() const;
+    DocumentElement* get(int index) const;
 private: 
     std::vector<DocumentElement*> docVec; 
 };
