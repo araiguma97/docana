@@ -1,13 +1,14 @@
-#include "DocumentVector.h"
+#pragma once
+
+#include "NounExtractor.h"
+#include "DocumentElement.h"
 
 #include <string>
 #include <vector>
 
 class BowVectorizer {
 public:
-    ~BowVectorizer();
-    DocumentVector* vectorize(const std::string& docText);
+    void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
 private:
-    DocumentVector* docVec;
-    int calculate(const std::string& targetNoun, const std::vector<std::string>& docNouns);
+    double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns);
 };

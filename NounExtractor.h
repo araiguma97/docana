@@ -1,9 +1,14 @@
+#pragma once
+
+#include <mecab.h>
+
 #include <string>
 #include <vector>
 
 class NounExtractor {
 public:
-    std::vector<std::string> extractNoun(const std::string& str);
+    void extractNoun(const std::string& str, std::vector<std::string>* nouns);
+    void extractNoun(const std::vector<std::string>& strs, std::vector<std::vector<std::string>>* nounsList);
 private:
-    std::vector<std::string> split(const std::string& str, const char delim);
+    void split(const std::string& str, const char delim, std::vector<std::string>* values);
 };

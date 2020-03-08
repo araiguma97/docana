@@ -2,7 +2,7 @@
 
 #include <string>
 
-class DocumentElement {
+struct DocumentElement {
 public:
     std::string noun;
     double score;

@@ -1,30 +1,23 @@
 #include "BowVectorizer.h"
-#include "NounExtractor.h"
 
-BowVectorizer::~BowVectorizer() {
-    delete docVec;
-}
-
-DocumentVector* BowVectorizer::vectorize(const std::string& docText) {
-    docVec = new DocumentVector();
-
+void BowVectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {
     NounExtractor ne;
-    std::vector<std::string> docNouns = ne.extractNoun(docText);
-    for (std::string docNoun : docNouns) {
-        docVec->add(docNoun, calculate(docNoun, docNouns));
+    std::vector<std::string> doc_nouns;
+    ne.extractNoun(doc_text, &doc_nouns);
+    for (std::string doc_noun : doc_nouns) {
+        DocumentElement doc_ele = {doc_noun, calculate(doc_noun, doc_nouns)};
+        doc_vec->push_back(doc_ele);
     }
-
-    return docVec;
 }
 
-int BowVectorizer::calculate(const std::string& targetNoun, const std::vector<std::string>& docNouns) {
-    int nounMatchCount = 0;
+double BowVectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
+    double noun_cnt = 0;
 
-    for (std::string docNoun : docNouns) {
-        if (targetNoun == docNoun) {
-            nounMatchCount++;
+    for (std::string doc_noun : doc_nouns) {
+        if (noun == doc_noun) {
+            noun_cnt++;
         }
     }
 
-    return nounMatchCount;
+    return noun_cnt;
 }
