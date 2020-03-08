@@ -35,24 +35,22 @@ bool Test::debugNounExtractor() {
 
 bool Test::debugBowVectorizer() {
     BowVectorizer bv;
-    DocumentVector* expecteds = new DocumentVector;
-    expecteds->add("私", 1);
-    expecteds->add("りんご", 1);
-    expecteds->add("好き", 2);
-    expecteds->add("たかし", 1);
-    expecteds->add("バナナ", 1);
-    expecteds->add("好き", 2);
-    DocumentVector* actuals = bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです");    
+    DocumentVector expecteds;
+    expecteds.add("私", 1);
+    expecteds.add("りんご", 1);
+    expecteds.add("好き", 2);
+    expecteds.add("たかし", 1);
+    expecteds.add("バナナ", 1);
+    expecteds.add("好き", 2);
+    DocumentVector actuals = *(bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです"));    
     
     std::cout << "[START   ] BowVectorizer" << std::endl;
-	if (! assertDocVecEq(*expecteds, *actuals)) {
+	if (! assertDocVecEq(expecteds, actuals)) {
 		std::cout << "[      NG] BowVectorizer" << std::endl;
-        delete expecteds;
 		return false;
 	}
 
 	std::cout << "[      OK] BowVectorizer" << std::endl;
-    delete expecteds;
     return true;
 }
 
