@@ -1,15 +1,17 @@
-#include "DocumentVector.h"
+#pragma once
+
 #include "NounExtractor.h"
+#include "DocumentElement.h"
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 class TfidfVectorizer {
 public:
-    TfidfVectorizer(std::vector<std::string> corpusTexts);
-    DocumentVector vectorize(std::string docText, std::vector<std::string> keyNouns);
+    TfidfVectorizer(const std::vector<std::string>& corpus_texts);
+    void vectorize(const std::string& doc_text, const std::vector<std::string>& key_nouns, std::vector<DocumentElement>* doc_vec);
 private:
-    std::vector<std::vector<std::string>> corpusNounsList;
-    int corpusNum;
-    double calculate(std::string targetNoun, std::string docText);
+    std::vector<std::vector<std::string>> corpus_nouns_list_;
+    double calculate(const std::string& noun, const std::string& doc_text);
 };

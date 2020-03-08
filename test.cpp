@@ -1,113 +1,78 @@
 #include "test.h"
-#include "NounExtractor.h"
-#include "BowVectorizer.h"
-#include "DocumentElement.h"
 
-#include <iostream>
-
-bool Test::debugAll() {
-    if (! debugNounExtractor()) {
-        return false;
-    }
-    if (! debugBowVectorizer()) {
-        return false;
-    }
-        
-	std::cout << "All tests were passed." << std::endl;
-	return true;
+void Test::debugAll() {
+    debugNounExtractor();
+    debugBowVectorizer();
+    debugTfidfVectorizer();
 }
 
-
-bool Test::debugNounExtractor() {
+void Test::debugNounExtractor() {
     NounExtractor ne;
     std::vector<std::string> expecteds = {"私", "りんご", "好き", "たかし", "バナナ", "好き"}; 
-    std::vector<std::string> actuals = ne.extractNoun("私はりんごが好きですが、たかしはバナナが好きです");
+    std::vector<std::string> actuals;
+    ne.extractNoun("私はりんごが好きですが、たかしはバナナが好きです", &actuals);
 	
-    std::cout << "[START   ] NounExtractor" << std::endl;
-	if (! assertStrVecEq(expecteds, actuals)) {
-		std::cout << "[      NG] NounExtractor" << std::endl;
-		return false;
-	}
-
-	std::cout << "[      OK] NounExtractor" << std::endl;
-	return true;
+    std::cout << "NounExtractor" << std::endl;
+    assertEquals(expecteds.size(), actuals.size());
+    for (std::string::size_type i = 0; i < expecteds.size(); i++) {
+        assertEquals(expecteds[i], actuals[i]);
+    }
+	std::cout << "OK" << std::endl;
 }
 
-bool Test::debugBowVectorizer() {
+void Test::debugBowVectorizer() {
     BowVectorizer bv;
-    DocumentVector expecteds;
-    expecteds.add("私", 1);
-    expecteds.add("りんご", 1);
-    expecteds.add("好き", 2);
-    expecteds.add("たかし", 1);
-    expecteds.add("バナナ", 1);
-    expecteds.add("好き", 2);
-    DocumentVector* actuals_ptr = bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです");
-    DocumentVector actuals = *actuals_ptr;    
-    
-    std::cout << "[START   ] BowVectorizer" << std::endl;
-	if (! assertDocVecEq(expecteds, actuals)) {
-		std::cout << "[      NG] BowVectorizer" << std::endl;
-		return false;
-	}
+    std::vector<double> expecteds = {1, 1, 2, 1, 1, 2};
+    std::vector<DocumentElement> actuals;
+    bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです", &actuals);
 
-	std::cout << "[      OK] BowVectorizer" << std::endl;
-    return true;
-}
-
-bool Test::assertDoubleEq(double expected, double actual) {
-    if (expected != actual) {
-        std::cout << "double NOT equal. expeted=" << expected << ", actual=" << actual << std::endl;
-        return false;
-    }    
-
-    return true;
-}
-    
-
-bool Test::assertStrEq(const std::string& expected, const std::string& actual) {
-    if (expected != actual) {
-        std::cout << "string NOT equal. expeted=" << expected << ", actual=" << actual << std::endl;
-        return false;
-    }    
-    
-    return true;
-}
-
-bool Test::assertSizeTypeEq(std::string::size_type expected, std::string::size_type actual) {
-    if (expected != actual) {
-        std::cout << "size_type NOT eaual. expeted=" << expected << ", actual=" << actual << std::endl;
-        return false;
-    }
-    
-    return true;
-}
-
-bool Test::assertStrVecEq(const std::vector<std::string>& expecteds, const std::vector<std::string>& actuals) {
-    if (! assertSizeTypeEq(expecteds.size(), actuals.size())) {
-        return false;
-    }
+    std::cout << "BoWVectorizer" << std::endl;
+    assertEquals(expecteds.size(), actuals.size());
     for (std::string::size_type i = 0; i < expecteds.size(); i++) {
-        if (! assertStrEq(expecteds[i], actuals[i])) {
-            return false;
-        }
+        assertEquals(expecteds[i], actuals[i].score);
     }
-
-    return true;
+	std::cout << "OK" << std::endl;
 }
 
-bool Test::assertDocVecEq(const DocumentVector& expecteds, const DocumentVector& actuals) {
-    if (! assertSizeTypeEq(expecteds.size(), actuals.size())) {
-        return false;
+void Test::debugTfidfVectorizer() {
+    std::vector<std::string> corpus_texts;
+    std::string corpus_text1 = "リンゴとミカンとミカンとバナナ";
+    std::string corpus_text2 = "バナナとミカンとイチゴとイチゴとブドウ";
+    corpus_texts.push_back(corpus_text1);
+    corpus_texts.push_back(corpus_text2);
+    std::vector<std::string> key_nouns = {"リンゴ", "ミカン", "バナナ"};
+
+    TfidfVectorizer tv(corpus_texts);
+    std::vector<double> expecteds = {0, -0.202733, -0.101366};
+    std::vector<DocumentElement> actuals;
+    tv.vectorize(corpus_text1, key_nouns, &actuals);
+
+    std::cout << "TfidfVectorizer" << std::endl;
+    assertEquals(expecteds.size(), actuals.size());
+    for (std::string::size_type i = 0; i < actuals.size(); i++) {
+        assertEquals(expecteds[i], actuals[i].score);
     }
-    for (std::string::size_type i = 0; i < expecteds.size(); i++) {
-        if (! assertStrEq(expecteds.get(i)->noun, actuals.get(i)->noun)) {
-            return false;
-        }
-        if (! assertDoubleEq(expecteds.get(i)->score, actuals.get(i)->score)) {
-            return false;
-        }
-    } 
-   
-    return true; 
+	std::cout << "OK" << std::endl;
+}
+
+void Test::assertEquals(double expected, double actual) {
+    if ((int)(expected * 100000) != (int)(actual * 100000)) {
+        std::cout << "expeted=" << expected << ", actual=" << actual << std::endl;
+        std::exit(EXIT_FAILURE);
+    }    
+}
+    
+
+void Test::assertEquals(const std::string& expected, const std::string& actual) {
+    if (expected != actual) {
+        std::cout << "expeted=" << expected << ", actual=" << actual << std::endl;
+        std::exit(EXIT_FAILURE);
+    }    
+}
+
+void Test::assertEquals(std::string::size_type expected, std::string::size_type actual) {
+    if (expected != actual) {
+        std::cout << "expeted=" << expected << ", actual=" << actual << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
 }

@@ -1,7 +1,4 @@
 #include "test.h"
-#include "NounExtractor.h"
-
-#include <iostream>
 
 #define DEBUG
 

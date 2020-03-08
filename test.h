@@ -1,17 +1,22 @@
-#include "DocumentVector.h"
+#pragma once
 
+#include "NounExtractor.h"
+#include "DocumentElement.h"
+#include "BowVectorizer.h"
+#include "TfidfVectorizer.h"
+
+#include <iostream>
 #include <string>
 #include <vector>
 
 class Test{
 public:
-    static bool debugAll();
-    static bool debugNounExtractor(); 
-    static bool debugBowVectorizer();
+    static void debugAll();
+    static void debugNounExtractor(); 
+    static void debugBowVectorizer();
+    static void debugTfidfVectorizer();
 private:
-    static bool assertDoubleEq(double expected, double actual); 
-    static bool assertStrEq(const std::string& expected, const std::string& actual); 
-    static bool assertSizeTypeEq(std::string::size_type expected, std::string::size_type actual);
-    static bool assertStrVecEq(const std::vector<std::string>& expecteds, const std::vector<std::string>& actuals);
-    static bool assertDocVecEq(const DocumentVector& expecteds, const DocumentVector& actuals);
+    static void assertEquals(const double expected, const double actual); 
+    static void assertEquals(const std::string& expected, const std::string& actual); 
+    static void assertEquals(const std::string::size_type expected, const std::string::size_type actual);
 };
