@@ -7,6 +7,10 @@ void DocumentVector::add(std::string noun, double score) {
    docVec.push_back(docEle);
 }
 
-bool DocumentVector::equals(DocumentVector* lhs) {
-    return docVec == lhs->docVec; 
+DocumentElement* DocumentVector::get(int index) {
+    return docVec[index];
+}
+
+std::string::size_type DocumentVector::size() {
+    return docVec.size();
 }

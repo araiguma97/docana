@@ -8,7 +8,8 @@
 class DocumentVector {
 public:
     void add(std::string noun, double score);
-    bool equals(DocumentVector* lhs);
+    std::string::size_type size();
+    DocumentElement* get(int index);
 private: 
     std::vector<DocumentElement*> docVec; 
 };
