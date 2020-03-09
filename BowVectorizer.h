@@ -1,10 +1,9 @@
 #pragma once
 
-#include "NounExtractor.h"
-#include "DocumentElement.h"
-
 #include <string>
 #include <vector>
+
+#include "DocumentElement.h"
 
 class BowVectorizer {
 public:

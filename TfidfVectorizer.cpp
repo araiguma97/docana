@@ -1,5 +1,12 @@
 #include "TfidfVectorizer.h"
 
+#include <string>
+#include <vector>
+#include <cmath>
+
+#include "DocumentElement.h"
+#include "NounExtractor.h"
+
 TfidfVectorizer::TfidfVectorizer(const std::vector<std::string>& corpus_texts) {
     NounExtractor ne;
     ne.extractNoun(corpus_texts, &corpus_nouns_list_);

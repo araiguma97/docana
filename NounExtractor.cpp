@@ -1,3 +1,8 @@
+#include <string>
+#include <vector>
+
+#include <mecab.h>
+
 #include "NounExtractor.h"
 
 void NounExtractor::extractNoun(const std::string& str, std::vector<std::string>* nouns) {

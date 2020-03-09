@@ -1,5 +1,11 @@
 #include "BowVectorizer.h"
 
+#include <string>
+#include <vector>
+
+#include "DocumentElement.h"
+#include "NounExtractor.h"
+
 void BowVectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {
     NounExtractor ne;
     std::vector<std::string> doc_nouns;

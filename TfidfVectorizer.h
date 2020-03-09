@@ -1,11 +1,9 @@
 #pragma once
 
-#include "NounExtractor.h"
-#include "DocumentElement.h"
-
 #include <string>
 #include <vector>
-#include <cmath>
+
+#include "DocumentElement.h"
 
 class TfidfVectorizer {
 public:

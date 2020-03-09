@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mecab.h>
-
 #include <string>
 #include <vector>
 

@@ -1,9 +1,9 @@
-#include "test.h"
+#include "DocanaTest.h"
 
 #define DEBUG
 
 int main() {
     #ifdef DEBUG
-        Test::debugAll();
+        DocanaTest::debugAll();
     #endif
 }
