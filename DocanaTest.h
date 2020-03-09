@@ -1,20 +1,17 @@
 #pragma once
 
-#include "NounExtractor.h"
-#include "DocumentElement.h"
-#include "BowVectorizer.h"
-#include "TfidfVectorizer.h"
-
-#include <iostream>
 #include <string>
 #include <vector>
 
-class Test{
+#include "DocumentElement.h"
+
+class DocanaTest{
 public:
     static void debugAll();
     static void debugNounExtractor(); 
     static void debugBowVectorizer();
     static void debugTfidfVectorizer();
+    static void debugTextFileReader();
 private:
     static void assertEquals(const double expected, const double actual); 
     static void assertEquals(const std::string& expected, const std::string& actual); 

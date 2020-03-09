@@ -1,12 +1,22 @@
-#include "test.h"
+#include "DocanaTest.h"
 
-void Test::debugAll() {
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "NounExtractor.h"
+#include "BowVectorizer.h"
+#include "TfidfVectorizer.h"
+#include "TextFileReader.h"
+
+void DocanaTest::debugAll() {
     debugNounExtractor();
     debugBowVectorizer();
     debugTfidfVectorizer();
+    debugTextFileReader();
 }
 
-void Test::debugNounExtractor() {
+void DocanaTest::debugNounExtractor() {
     NounExtractor ne;
     std::vector<std::string> expecteds = {"私", "りんご", "好き", "たかし", "バナナ", "好き"}; 
     std::vector<std::string> actuals;
@@ -20,7 +30,7 @@ void Test::debugNounExtractor() {
 	std::cout << "OK" << std::endl;
 }
 
-void Test::debugBowVectorizer() {
+void DocanaTest::debugBowVectorizer() {
     BowVectorizer bv;
     std::vector<double> expecteds = {1, 1, 2, 1, 1, 2};
     std::vector<DocumentElement> actuals;
@@ -34,7 +44,7 @@ void Test::debugBowVectorizer() {
 	std::cout << "OK" << std::endl;
 }
 
-void Test::debugTfidfVectorizer() {
+void DocanaTest::debugTfidfVectorizer() {
     std::vector<std::string> corpus_texts;
     std::string corpus_text1 = "リンゴとミカンとミカンとバナナ";
     std::string corpus_text2 = "バナナとミカンとイチゴとイチゴとブドウ";
@@ -55,24 +65,34 @@ void Test::debugTfidfVectorizer() {
 	std::cout << "OK" << std::endl;
 }
 
-void Test::assertEquals(double expected, double actual) {
+void DocanaTest::debugTextFileReader() {
+    TextFileReader tfr;
+    std::string expected = "吾輩は猫である。名前はまだない。どこで生れたか頓と見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。";
+    std::string actual = tfr.readTextFile("test/cat.txt");
+
+	std::cout << "TextFileReader" << std::endl;
+    assertEquals(expected, actual);
+	std::cout << "OK" << std::endl;
+}
+
+void DocanaTest::assertEquals(double expected, double actual) {
     if ((int)(expected * 100000) != (int)(actual * 100000)) {
-        std::cout << "expeted=" << expected << ", actual=" << actual << std::endl;
+        std::cout << "expected=" << expected << ", actual=" << actual << std::endl;
         std::exit(EXIT_FAILURE);
     }    
 }
     
 
-void Test::assertEquals(const std::string& expected, const std::string& actual) {
+void DocanaTest::assertEquals(const std::string& expected, const std::string& actual) {
     if (expected != actual) {
-        std::cout << "expeted=" << expected << ", actual=" << actual << std::endl;
+        std::cout << "expected=" << expected << ", actual=" << actual << std::endl;
         std::exit(EXIT_FAILURE);
     }    
 }
 
-void Test::assertEquals(std::string::size_type expected, std::string::size_type actual) {
+void DocanaTest::assertEquals(std::string::size_type expected, std::string::size_type actual) {
     if (expected != actual) {
-        std::cout << "expeted=" << expected << ", actual=" << actual << std::endl;
+        std::cout << "expected=" << expected << ", actual=" << actual << std::endl;
         std::exit(EXIT_FAILURE);
     }
 }
