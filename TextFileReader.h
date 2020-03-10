@@ -4,5 +4,5 @@
 
 class TextFileReader {
 public:
-    std::string readTextFile(const std::string& file_path);
+    std::string read(const std::string& file_path);
 };

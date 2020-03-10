@@ -1,7 +1,7 @@
 #vim:set noexpandtab :
 
 PROGRAM = docana
-OBJS = main.o DocanaTest.o NounExtractor.o DocumentElement.o BowVectorizer.o TfidfVectorizer.o TextFileReader.o
+OBJS = main.o DocanaTest.o NounExtractor.o DocumentElement.o BowVectorizer.o TfidfVectorizer.o TextFileReader.o VectorizerUtility.o DocanaFacade.o
 
 CC = g++
 CFLAGS = -Wall -O2 -g

@@ -12,8 +12,9 @@ public:
     static void debugBowVectorizer();
     static void debugTfidfVectorizer();
     static void debugTextFileReader();
+    static void debugDocanaFacade();
 private:
+    static void assertEquals(int expected, int actual); 
     static void assertEquals(const double expected, const double actual); 
     static void assertEquals(const std::string& expected, const std::string& actual); 
-    static void assertEquals(const std::string::size_type expected, const std::string::size_type actual);
 };
