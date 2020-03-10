@@ -1,4 +1,4 @@
-#include "DocanaFacade.h"
+#include "DocumentAnalyzer.h"
 
 #include <string>
 #include <vector>

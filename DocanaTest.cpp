@@ -9,7 +9,7 @@
 #include "BowVectorizer.h"
 #include "TfidfVectorizer.h"
 #include "TextFileReader.h"
-#include "DocanaFacade.h"
+#include "DocumentAnalyzer.h"
 
 void DocanaTest::debugAll() {
     debugNounExtractor();
