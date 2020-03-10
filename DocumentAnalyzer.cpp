@@ -11,7 +11,8 @@
 #include "TextFileReader.h"
 #include "VectorizerUtility.h"
 
-DocanaFacade::DocanaFacade(const std::vector<std::string>& corpus_paths) {
+DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths) {
+    // コーパスの読み込み
     std::string corpus_all_text = "";
     for (std::string corpus_path : corpus_paths) {
         TextFileReader tfr;
@@ -19,6 +20,8 @@ DocanaFacade::DocanaFacade(const std::vector<std::string>& corpus_paths) {
         corpus_texts_.push_back(corpus_text);
         corpus_all_text += corpus_text;
     }
+
+    // ベクトルの基とする名詞群の作成
     BowVectorizer bv;
     std::vector<DocumentElement> key_vec;
     bv.vectorize(corpus_all_text, &key_vec);
@@ -27,7 +30,7 @@ DocanaFacade::DocanaFacade(const std::vector<std::string>& corpus_paths) {
     VectorizerUtility::toNouns(key_vec, &key_nouns_);
 }
 
-void DocanaFacade::extractTerm(const std::string& doc_path, int size, std::vector<std::string>* terms) {
+void DocumentAnalyzer::extractTerm(const std::string& doc_path, int size, std::vector<std::string>* terms) {
     TextFileReader tfr;
     std::string doc_text = tfr.read(doc_path);
 
@@ -39,7 +42,7 @@ void DocanaFacade::extractTerm(const std::string& doc_path, int size, std::vecto
     VectorizerUtility::toNouns(vec, terms);
 }
 
-void DocanaFacade::vectorize(const std::string& doc_path, std::vector<double>* scores) {
+void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double>* scores) {
     TextFileReader tfr;
     std::string doc_text = tfr.read(doc_path);
 

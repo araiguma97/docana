@@ -1,7 +1,14 @@
+/**
+ * @file DocumentElement.h
+ */
+
 #pragma once
 
 #include <string>
 
+/**
+ * 文書ベクトルの要素の構造体。
+ */
 struct DocumentElement {
     std::string noun;
     double score;

@@ -1,10 +1,16 @@
+/**
+ * @file DocanaTest.h
+ */
+
 #pragma once
 
 #include <string>
 #include <vector>
 
 #include "DocumentElement.h"
-
+/**
+ * Test class.
+ */
 class DocanaTest{
 public:
     static void debugAll();
@@ -12,7 +18,7 @@ public:
     static void debugBowVectorizer();
     static void debugTfidfVectorizer();
     static void debugTextFileReader();
-    static void debugDocanaFacade();
+    static void debugDocumentAnalyzer();
 private:
     static void assertEquals(int expected, int actual); 
     static void assertEquals(const double expected, const double actual); 

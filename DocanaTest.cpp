@@ -16,7 +16,7 @@ void DocanaTest::debugAll() {
     debugBowVectorizer();
     debugTfidfVectorizer();
     debugTextFileReader();
-    debugDocanaFacade();
+    debugDocumentAnalyzer();
 }
 
 void DocanaTest::debugNounExtractor() {
@@ -75,18 +75,18 @@ void DocanaTest::debugTextFileReader() {
 	std::cout << "OK" << std::endl;
 }
 
-void DocanaTest::debugDocanaFacade() {
+void DocanaTest::debugDocumentAnalyzer() {
     std::vector<std::string> corpus_file_names = {
         "test/cat.txt", "test/remon.txt", "test/run_melos.txt", 
     };
 
-	std::cout << "DocanaFacade::extractTerm()" << std::endl;
+	std::cout << "DocumentAnalyzer::extractTerm()" << std::endl;
     std::chrono::system_clock::time_point start, ctor_end, func_end;
     start = std::chrono::system_clock::now();
-    DocanaFacade df(corpus_file_names);
+    DocumentAnalyzer df(corpus_file_names);
     ctor_end  = std::chrono::system_clock::now();
     double ctor_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(ctor_end - start).count();  
-	std::cout << "Constructor elapsed time=" << ctor_elapsed << " ms" << std::endl;
+	std::cout << "Constructor elapsed time=" << ctor_elapsed << "ms" << std::endl;
     std::vector<std::string> actuals;
     df.extractTerm(corpus_file_names[0], 10, &actuals);
     std::cout << "Terms=[";
@@ -96,7 +96,7 @@ void DocanaTest::debugDocanaFacade() {
     std::cout << "]" <<std::endl;
     func_end  = std::chrono::system_clock::now();
     double func_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(func_end - start).count();  
-	std::cout << "function elapsed time=" << func_elapsed << " ms" << std::endl;
+	std::cout << "Function elapsed time=" << func_elapsed << "ms" << std::endl;
 	std::cout << "END" << std::endl;
 }
 
