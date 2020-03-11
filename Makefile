@@ -1,10 +1,10 @@
 #vim:set noexpandtab :
 
 PROGRAM = docana
-OBJS = main.o DocanaTest.o NounExtractor.o DocumentElement.o BowVectorizer.o TfidfVectorizer.o TextFileReader.o VectorizerUtility.o DocumentAnalyzer.o
+OBJS = main.o DocanaTest.o NounExtractor.o DocumentElement.o BowVectorizer.o TfidfVectorizer.o TextFileReader.o VectorizerUtility.o DocumentAnalyzer.o CosSimCalculator.o
 
 CC = g++
-CFLAGS = -Wall -O2 -g
+CFLAGS = -Wall -O2 -g -fsanitize=leak
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<

@@ -10,6 +10,7 @@
 #include "TfidfVectorizer.h"
 #include "TextFileReader.h"
 #include "VectorizerUtility.h"
+#include "CosSimCalculator.h"
 
 DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths) {
     // コーパスの読み込み
@@ -50,4 +51,14 @@ void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double
     std::vector<DocumentElement> vec;
     tv.vectorize(doc_text, key_nouns_, &vec);
     VectorizerUtility::toScores(vec, scores);
+}
+
+double DocumentAnalyzer::calcSim(const std::string& doc_path1, const std::string& doc_path2) {
+    std::vector<double> scores1;
+    std::vector<double> scores2;
+    vectorize(doc_path1, &scores1);
+    vectorize(doc_path2, &scores2);
+
+    CosSimCalculator csc;
+    return csc.calculate(scores1, scores2); 
 }

@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include <mecab.h>
+
 /**
  * 名詞を抽出するクラス。
  */

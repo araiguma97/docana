@@ -33,6 +33,14 @@ public:
      * @param [out] scores   文書ベクトル
      */
     void vectorize(const std::string& doc_path, std::vector<double>* scores);
+
+    /**
+     * 2つの文書の類似度を計算する
+     * @param [in] doc_path1 1つ目の文書のパス
+     * @param [in] doc_path2 2つ目の文書のパス
+     * @return 類似度
+     */
+    double calcSim(const std::string& doc_path1, const std::string& doc_path2);
     void setDimention(int dimention) { dimention_ = dimention; };
 private:
     std::vector<std::string> corpus_texts_;

@@ -12,10 +12,10 @@
 #include "DocumentAnalyzer.h"
 
 void DocanaTest::debugAll() {
-    debugNounExtractor();
-    debugBowVectorizer();
-    debugTfidfVectorizer();
-    debugTextFileReader();
+    // debugNounExtractor();
+    // debugBowVectorizer();
+    // debugTfidfVectorizer();
+    // debugTextFileReader();
     debugDocumentAnalyzer();
 }
 
@@ -76,6 +76,11 @@ void DocanaTest::debugTextFileReader() {
 }
 
 void DocanaTest::debugDocumentAnalyzer() {
+    debugDocumentAnalyzer_extractTerm();
+    debugDocumentAnalyzer_calcSim();    
+}
+
+void DocanaTest::debugDocumentAnalyzer_extractTerm() {
     std::vector<std::string> corpus_file_names = {
         "test/cat.txt", "test/remon.txt", "test/run_melos.txt", 
     };
@@ -97,6 +102,24 @@ void DocanaTest::debugDocumentAnalyzer() {
     func_end  = std::chrono::system_clock::now();
     double func_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(func_end - start).count();  
 	std::cout << "Function elapsed time=" << func_elapsed << "ms" << std::endl;
+	std::cout << "END" << std::endl;
+}
+
+void DocanaTest::debugDocumentAnalyzer_calcSim() {
+    std::vector<std::string> corpus_file_names = {
+        "test/1.txt", "test/2.txt", "test/3.txt", 
+        "test/4.txt", "test/5.txt", "test/6.txt", 
+        "test/7.txt", "test/8.txt", "test/9.txt", 
+        "test/10.txt", 
+    };
+
+    DocumentAnalyzer da(corpus_file_names);
+
+	std::cout << "DocumentAnalyzer::calcSim()" << std::endl;
+    for (std::string corpus_file_name : corpus_file_names) {
+        std::cout << corpus_file_names[0] << "<->" << corpus_file_name << ", sim=" << (double)da.calcSim(corpus_file_names[0], corpus_file_name);
+        std::cout << std::endl;
+    }
 	std::cout << "END" << std::endl;
 }
 

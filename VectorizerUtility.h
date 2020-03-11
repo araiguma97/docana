@@ -10,13 +10,13 @@
 #include "DocumentElement.h"
 
 /**
- * ベクトルに関する便利クラス。
+ * 文書ベクトルに関する便利クラス。
  */
 class VectorizerUtility {
 public:
     /**
-     * リストをユニークし、降順でソートする
-     * @param [in,out] vec ユニークにして、降順でソートする文書ベクトル
+     * 文書ベクトルをユニークし、降順にソートする
+     * @param [in,out] vec ユニークにして、降順にソートする文書ベクトル
      */
     static void uniqueSort(std::vector<DocumentElement>* vec);
 
