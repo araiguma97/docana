@@ -112,7 +112,6 @@ void DocanaTest::debugDocumentAnalyzer_calcSim() {
         "test/7.txt", "test/8.txt", "test/9.txt", 
         "test/10.txt", 
     };
-
     DocumentAnalyzer da(corpus_file_names);
 
 	std::cout << "DocumentAnalyzer::calcSim()" << std::endl;

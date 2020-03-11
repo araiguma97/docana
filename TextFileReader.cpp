@@ -1,5 +1,7 @@
 #include "TextFileReader.h"
 
+
+#include <iostream>
 #include <fstream>
 #include <string>
 
@@ -8,7 +10,8 @@ std::string TextFileReader::read(const std::string& file_path) {
 
     std::ifstream file(file_path, std::ios::in);
     if (! file) {
-        return NULL; 
+        std::cerr << "error: File \"" << file_path << "\" not found." << std::endl;
+        std::exit(EXIT_FAILURE);
     }
 
     std::string line;
