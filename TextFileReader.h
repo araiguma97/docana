@@ -14,7 +14,7 @@ public:
     /**
      * テキストファイルを読み込む
      * @param file_path ファイルのパス
-     * @retrun ファイルのテキスト（ファイルがないときは、NULL）
+     * @retrun ファイルのテキスト
      */
     std::string read(const std::string& file_path);
 };

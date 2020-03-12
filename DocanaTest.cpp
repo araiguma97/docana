@@ -12,10 +12,10 @@
 #include "DocumentAnalyzer.h"
 
 void DocanaTest::debugAll() {
-    // debugNounExtractor();
-    // debugBowVectorizer();
-    // debugTfidfVectorizer();
-    // debugTextFileReader();
+    debugNounExtractor();
+    debugBowVectorizer();
+    debugTfidfVectorizer();
+    debugTextFileReader();
     debugDocumentAnalyzer();
 }
 
