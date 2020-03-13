@@ -27,9 +27,7 @@ void AbstractVectorizer::initialize(const std::vector<std::string>& corpus_texts
     
     // ベクトルを名詞群にする
     VectorizerUtility::uniqueSort(&base_vec);
-    if (dimention_ > (int)base_vec.size()) {
-        dimention_ = base_vec.size();
-    }
+    dimention_ = (dimention_ < (int)base_vec.size()) ? dimention_ : base_vec.size();
     base_vec.resize(dimention_); 
     VectorizerUtility::toNouns(base_vec, &base_nouns_);
 }

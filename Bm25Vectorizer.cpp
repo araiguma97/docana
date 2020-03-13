@@ -35,6 +35,7 @@ double Bm25Vectorizer::calculate(const std::string& noun, const std::string& doc
     double idf_numerator   = corpus_num - doc_cnt + 0.5;
     double idf_denominator = doc_cnt + 0.5;
     double idf = std::log((double)idf_numerator / idf_denominator);
+    idf = idf > 0 ? idf : 0;
 
     // NDL (Normalized Document Length) の計算
     double dl     = noun_cnt; 
@@ -44,7 +45,7 @@ double Bm25Vectorizer::calculate(const std::string& noun, const std::string& doc
     // BM25スコアの計算
     double numerator   = tf * idf * (k1_ + 1);
     double denominator = tf + k1_ * (1 - b_ + b_ * ndl);
-    double bm25_score = idf * (numerator / denominator);
+    double bm25_score = numerator / denominator;
 
     return bm25_score;
 }

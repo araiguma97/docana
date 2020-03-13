@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <mecab.h>
+#include <iostream>
 
 void NounExtractor::extractNoun(const std::string& str, std::vector<std::string>* nouns) {
     MeCab::Tagger* tagger = MeCab::createTagger("");
@@ -11,7 +12,7 @@ void NounExtractor::extractNoun(const std::string& str, std::vector<std::string>
     for (; node; node = node->next) {
         std::vector<std::string> feature_values;
         split(node->feature, ',', &feature_values);
-        if (! isStopWord(feature_values)) {
+        if (isNoun(feature_values)) {
             nouns->push_back(feature_values[6]);
         }
     }
@@ -39,9 +40,16 @@ void NounExtractor::split(const std::string& str, const char delim, std::vector<
     }
 }
 
-bool NounExtractor::isStopWord(const std::vector<std::string>& feature_values) {
-    return (feature_values[0] != "名詞")
-           || (feature_values[1] == "非自立")
-           || (feature_values[6] == "*")
-           || (feature_values[6].size() < 4);
+bool NounExtractor::isNoun(const std::vector<std::string>& feature_values) {
+    if (feature_values[0] != "名詞") {
+        return false;
+    }
+    if ((feature_values[1] != "一般") && (feature_values[1] != "サ変接続")) {
+        return false;
+    }
+    if (feature_values[6] == "＊") {
+        return false;
+    }
+
+    return true;
 } 

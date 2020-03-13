@@ -27,7 +27,7 @@ public:
      * @param [in]  doc_text  文書テキスト
      * @param [in]  key_nouns ベクトルの基にする名詞群
      * @param [out] doc_vec   文書ベクトル
-    */
+     */
     void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
     void setDimention(int dimention) { dimention_ = dimention; };
 protected:
