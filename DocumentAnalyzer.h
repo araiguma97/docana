@@ -16,11 +16,6 @@ class DocumentAnalyzer {
 public:
     /**
      * @param [in] corpus_paths コーパスのパス一覧
-     */
-    DocumentAnalyzer(const std::vector<std::string>& corpus_paths);
-
-    /**
-     * @param [in] corpus_paths コーパスのパス一覧
      * @param [in] vectorizer   ベクトライザ 
      */
     DocumentAnalyzer(const std::vector<std::string>& corpus_paths, AbstractVectorizer* vectorizer);

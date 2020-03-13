@@ -6,19 +6,10 @@
 #include <algorithm>
 
 #include "DocumentElement.h"
-#include "NounExtractor.h"
-#include "BowVectorizer.h"
 #include "AbstractVectorizer.h"
-#include "TfidfVectorizer.h"
-#include "Bm25Vectorizer.h"
 #include "TextFileReader.h"
 #include "VectorizerUtility.h"
 #include "CosSimCalculator.h"
-
-DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths) {
-    vectorizer_ = new Bm25Vectorizer;
-    DocumentAnalyzer(corpus_paths, vectorizer_);
-}
 
 DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths, AbstractVectorizer* vectorizer) : vectorizer_(vectorizer){
     // コーパスの読み込み
@@ -58,8 +49,8 @@ void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double
 
 double DocumentAnalyzer::calcSim(const std::string& doc_path1, const std::string& doc_path2) {
     std::vector<double> scores1;
-    std::vector<double> scores2;
     vectorize(doc_path1, &scores1);
+    std::vector<double> scores2;
     vectorize(doc_path2, &scores2);
 
     CosSimCalculator csc;
