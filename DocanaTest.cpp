@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <chrono>
 
 #include "NounExtractor.h"
 #include "BowVectorizer.h"
@@ -14,7 +13,7 @@
 void DocanaTest::debugAll() {
     debugNounExtractor();
     debugBowVectorizer();
-    // debugTfidfVectorizer();
+    debugTfidfVectorizer();
     debugTextFileReader();
     debugDocumentAnalyzer();
 }
@@ -56,11 +55,10 @@ void DocanaTest::debugTfidfVectorizer() {
     std::string corpus_text2 = "バナナとミカンとイチゴとイチゴとブドウ";
     corpus_texts.push_back(corpus_text1);
     corpus_texts.push_back(corpus_text2);
-    std::vector<std::string> key_nouns = {"リンゴ", "ミカン", "バナナ"};
 
     TfidfVectorizer tv;
     tv.initialize(corpus_texts);
-    std::vector<double> expecteds = {0, -0.202733, -0.101366};
+    std::vector<double> expecteds = {-0.20273, 0, -0.10136};
     std::vector<DocumentElement> actuals;
     tv.vectorize(corpus_text1, &actuals);
 
@@ -87,12 +85,7 @@ void DocanaTest::debugDocumentAnalyzer_extractTerm() {
     };
 
 	std::cout << "DocumentAnalyzer::extractTerm()" << std::endl;
-    std::chrono::system_clock::time_point start, ctor_end, func_end;
-    start = std::chrono::system_clock::now();
     DocumentAnalyzer df(corpus_file_names);
-    ctor_end  = std::chrono::system_clock::now();
-    double ctor_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(ctor_end - start).count();  
-	std::cout << "Constructor elapsed time=" << ctor_elapsed << "ms" << std::endl;
     std::vector<std::string> actuals;
     df.extractTerm(corpus_file_names[0], 10, &actuals);
     std::cout << "Terms=[";
@@ -100,9 +93,6 @@ void DocanaTest::debugDocumentAnalyzer_extractTerm() {
         std::cout << actual << ", ";
     }
     std::cout << "]" <<std::endl;
-    func_end  = std::chrono::system_clock::now();
-    double func_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(func_end - start).count();  
-	std::cout << "Function elapsed time=" << func_elapsed << "ms" << std::endl;
 	std::cout << "END" << std::endl;
 }
 
