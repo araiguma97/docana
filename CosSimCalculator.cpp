@@ -8,8 +8,8 @@ double CosSimCalculator::calculate(const std::vector<double>& vec1, const std::v
         return 2;
     }
 
-    double denominator = 0;
     double numerator   = 0;
+    double denominator = 0;
     double sum_sq1 = 0;
     double sum_sq2 = 0;
 
@@ -17,12 +17,12 @@ double CosSimCalculator::calculate(const std::vector<double>& vec1, const std::v
         double ele1 = vec1[i];
         double ele2 = vec2[i];
 
-        denominator += ele1 * ele2;
+        numerator += ele1 * ele2;
         sum_sq1 += ele1 * ele1;
         sum_sq2 += ele2 * ele2;
     }
 
-    numerator = std::sqrt(sum_sq1) * std::sqrt(sum_sq2);
+    denominator = std::sqrt(sum_sq1) * std::sqrt(sum_sq2);
 
-    return denominator / numerator;
+    return numerator / denominator;
 }
