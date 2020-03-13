@@ -1,5 +1,4 @@
 #include "TfidfVectorizer.h"
-
 #include <cmath>
 #include <string>
 

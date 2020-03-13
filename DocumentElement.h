@@ -1,7 +1,6 @@
 /**
  * @file DocumentElement.h
  */
-
 #pragma once
 
 #include <string>

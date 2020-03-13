@@ -14,9 +14,14 @@
 void DocanaTest::debugAll() {
     debugNounExtractor();
     debugBowVectorizer();
-    debugTfidfVectorizer();
+    // debugTfidfVectorizer();
     debugTextFileReader();
     debugDocumentAnalyzer();
+}
+
+void DocanaTest::debugDocumentAnalyzer() {
+    debugDocumentAnalyzer_extractTerm();
+    debugDocumentAnalyzer_calcSim();    
 }
 
 void DocanaTest::debugNounExtractor() {
@@ -53,10 +58,11 @@ void DocanaTest::debugTfidfVectorizer() {
     corpus_texts.push_back(corpus_text2);
     std::vector<std::string> key_nouns = {"リンゴ", "ミカン", "バナナ"};
 
-    TfidfVectorizer tv(corpus_texts);
+    TfidfVectorizer tv;
+    tv.initialize(corpus_texts);
     std::vector<double> expecteds = {0, -0.202733, -0.101366};
     std::vector<DocumentElement> actuals;
-    tv.vectorize(corpus_text1, key_nouns, &actuals);
+    tv.vectorize(corpus_text1, &actuals);
 
     std::cout << "TfidfVectorizer" << std::endl;
     for (std::string::size_type i = 0; i < actuals.size(); i++) {
@@ -73,11 +79,6 @@ void DocanaTest::debugTextFileReader() {
 	std::cout << "TextFileReader" << std::endl;
     assertEquals(expected, actual);
 	std::cout << "OK" << std::endl;
-}
-
-void DocanaTest::debugDocumentAnalyzer() {
-    debugDocumentAnalyzer_extractTerm();
-    debugDocumentAnalyzer_calcSim();    
 }
 
 void DocanaTest::debugDocumentAnalyzer_extractTerm() {
@@ -107,10 +108,7 @@ void DocanaTest::debugDocumentAnalyzer_extractTerm() {
 
 void DocanaTest::debugDocumentAnalyzer_calcSim() {
     std::vector<std::string> corpus_file_names = {
-        "test/1.txt", "test/2.txt", "test/3.txt", 
-        "test/4.txt", "test/5.txt", "test/6.txt", 
-        "test/7.txt", "test/8.txt", "test/9.txt", 
-        "test/10.txt", 
+        "test/cat.txt", "test/remon.txt", "test/run_melos.txt", 
     };
     DocumentAnalyzer da(corpus_file_names);
 

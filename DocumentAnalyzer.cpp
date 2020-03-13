@@ -1,5 +1,6 @@
 #include "DocumentAnalyzer.h"
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -7,49 +8,51 @@
 #include "DocumentElement.h"
 #include "NounExtractor.h"
 #include "BowVectorizer.h"
+#include "AbstractVectorizer.h"
 #include "TfidfVectorizer.h"
+#include "Bm25Vectorizer.h"
 #include "TextFileReader.h"
 #include "VectorizerUtility.h"
 #include "CosSimCalculator.h"
 
 DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths) {
+    vectorizer_ = new Bm25Vectorizer;
+    DocumentAnalyzer(corpus_paths, vectorizer_);
+}
+
+DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths, AbstractVectorizer* vectorizer) : vectorizer_(vectorizer){
     // コーパスの読み込み
-    std::string corpus_all_text = "";
     for (std::string corpus_path : corpus_paths) {
         TextFileReader tfr;
         std::string corpus_text = tfr.read(corpus_path);
         corpus_texts_.push_back(corpus_text);
-        corpus_all_text += corpus_text;
     }
 
-    // ベクトルの基とする名詞群の作成
-    BowVectorizer bv;
-    std::vector<DocumentElement> key_vec;
-    bv.vectorize(corpus_all_text, &key_vec);
-    VectorizerUtility::uniqueSort(&key_vec);
-    key_vec.resize(dimention_); 
-    VectorizerUtility::toNouns(key_vec, &key_nouns_);
+    // ベクトライザの設定
+    vectorizer_->initialize(corpus_texts_);
 }
 
 void DocumentAnalyzer::extractTerm(const std::string& doc_path, int size, std::vector<std::string>* terms) {
+    // 文書の読み込み
     TextFileReader tfr;
     std::string doc_text = tfr.read(doc_path);
 
-    TfidfVectorizer tv(corpus_texts_);
+    // ベクトル化した後、名詞一覧に変換
     std::vector<DocumentElement> vec;
-    tv.vectorize(doc_text, key_nouns_, &vec);
+    vectorizer_->vectorize(doc_text, &vec);
     VectorizerUtility::uniqueSort(&vec);
     vec.resize(size);
     VectorizerUtility::toNouns(vec, terms);
 }
 
 void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double>* scores) {
+    // 文書の読み込み
     TextFileReader tfr;
     std::string doc_text = tfr.read(doc_path);
-
-    TfidfVectorizer tv(corpus_texts_);
+    
+    // ベクトル化した後、重要度一覧に変換
     std::vector<DocumentElement> vec;
-    tv.vectorize(doc_text, key_nouns_, &vec);
+    vectorizer_->vectorize(doc_text, &vec);
     VectorizerUtility::toScores(vec, scores);
 }
 
