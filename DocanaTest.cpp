@@ -7,6 +7,7 @@
 #include "NounExtractor.h"
 #include "BowVectorizer.h"
 #include "TfidfVectorizer.h"
+#include "Bm25Vectorizer.h"
 #include "TextFileReader.h"
 #include "DocumentAnalyzer.h"
 
@@ -25,7 +26,7 @@ void DocanaTest::debugDocumentAnalyzer() {
 
 void DocanaTest::debugNounExtractor() {
     NounExtractor ne;
-    std::vector<std::string> expecteds = {"りんご", "好き", "たかし", "バナナ", "好き"}; 
+    std::vector<std::string> expecteds = {"りんご", "バナナ"}; 
     std::vector<std::string> actuals;
     ne.extractNoun("私はりんごが好きですが、たかしはバナナが好きです", &actuals);
 	
@@ -38,7 +39,7 @@ void DocanaTest::debugNounExtractor() {
 
 void DocanaTest::debugBowVectorizer() {
     BowVectorizer bv;
-    std::vector<double> expecteds = {1, 2, 1, 1, 2};
+    std::vector<double> expecteds = {1, 1};
     std::vector<DocumentElement> actuals;
     bv.vectorize("私はりんごが好きですが、たかしはバナナが好きです", &actuals);
 
@@ -58,7 +59,7 @@ void DocanaTest::debugTfidfVectorizer() {
 
     TfidfVectorizer tv;
     tv.initialize(corpus_texts);
-    std::vector<double> expecteds = {-0.20273, 0, -0.10136};
+    std::vector<double> expecteds = {-0.202733, 0, -0.101366};
     std::vector<DocumentElement> actuals;
     tv.vectorize(corpus_text1, &actuals);
 
@@ -81,26 +82,30 @@ void DocanaTest::debugTextFileReader() {
 
 void DocanaTest::debugDocumentAnalyzer_extractTerm() {
     std::vector<std::string> corpus_file_names = {
-        "test/cat.txt", "test/remon.txt", "test/run_melos.txt", 
+        // "test/cat.txt",
+        "test/wagahaiwa_nekodearu.txt", "test/lemon.txt", "test/hashire_merosu.txt", 
     };
 
 	std::cout << "DocumentAnalyzer::extractTerm()" << std::endl;
-    DocumentAnalyzer df(corpus_file_names);
-    std::vector<std::string> actuals;
-    df.extractTerm(corpus_file_names[0], 10, &actuals);
-    std::cout << "Terms=[";
-    for (std::string actual : actuals) {
-        std::cout << actual << ", ";
+    DocumentAnalyzer df(corpus_file_names, new Bm25Vectorizer);
+    for (std::string corpus_file_name : corpus_file_names) {
+        std::vector<std::string> actuals;
+        df.extractTerm(corpus_file_name, 10, &actuals);
+        std::cout << "Terms=[";
+        for (std::string actual : actuals) {
+            std::cout << actual << ", ";
+        }
+        std::cout << "]" <<std::endl;
     }
-    std::cout << "]" <<std::endl;
 	std::cout << "END" << std::endl;
 }
 
 void DocanaTest::debugDocumentAnalyzer_calcSim() {
     std::vector<std::string> corpus_file_names = {
-        "test/cat.txt", "test/remon.txt", "test/run_melos.txt", 
+        // "test/cat.txt",
+        "test/wagahaiwa_nekodearu.txt", "test/lemon.txt", "test/hashire_merosu.txt", 
     };
-    DocumentAnalyzer da(corpus_file_names);
+    DocumentAnalyzer da(corpus_file_names, new Bm25Vectorizer);
 
 	std::cout << "DocumentAnalyzer::calcSim()" << std::endl;
     for (std::string corpus_file_name : corpus_file_names) {
@@ -127,3 +132,4 @@ void DocanaTest::assertEquals(const std::string& expected, const std::string& ac
         std::exit(EXIT_FAILURE);
     }    
 }
+
