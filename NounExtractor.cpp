@@ -4,7 +4,6 @@
 #include <vector>
 
 #include <mecab.h>
-#include <iostream>
 
 void NounExtractor::extractNoun(const std::string& str, std::vector<std::string>* nouns) {
     MeCab::Tagger* tagger = MeCab::createTagger("");
