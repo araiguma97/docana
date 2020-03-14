@@ -5,22 +5,26 @@
 #include <vector>
 
 #include "NounExtractor.h"
+#include "AbstractVectorizer.h"
 #include "BowVectorizer.h"
 #include "TfidfVectorizer.h"
 #include "Bm25Vectorizer.h"
 #include "TextFileReader.h"
 #include "DocumentAnalyzer.h"
+#include "VectorizerFactory.h"
 
 void DocanaTest::debugAll() {
-    debugNounExtractor();
-    debugBowVectorizer();
-    debugTfidfVectorizer();
-    debugTextFileReader();
+    // debugNounExtractor();
+    // debugBowVectorizer();
+    // debugTfidfVectorizer();
+    //debugTextFileReader();
     debugDocumentAnalyzer();
 }
 
 void DocanaTest::debugDocumentAnalyzer() {
-    debugDocumentAnalyzer_extractTerm();
+    debugDocumentAnalyzer_extractTerm(BOW);
+    debugDocumentAnalyzer_extractTerm(TFIDF);
+    debugDocumentAnalyzer_extractTerm(BM25);
     debugDocumentAnalyzer_calcSim();    
 }
 
@@ -80,17 +84,20 @@ void DocanaTest::debugTextFileReader() {
 	std::cout << "OK" << std::endl;
 }
 
-void DocanaTest::debugDocumentAnalyzer_extractTerm() {
+void DocanaTest::debugDocumentAnalyzer_extractTerm(enum VectorizationMethod method) {
+    VectorizerFactory vf;
+    AbstractVectorizer* vectorizer = vf.create(method);
+
     std::vector<std::string> corpus_file_names = {
         // "test/cat.txt",
         "test/wagahaiwa_nekodearu.txt", "test/lemon.txt", "test/hashire_merosu.txt", 
     };
 
 	std::cout << "DocumentAnalyzer::extractTerm()" << std::endl;
-    DocumentAnalyzer df(corpus_file_names, new Bm25Vectorizer);
+    DocumentAnalyzer df(corpus_file_names, vectorizer);
     for (std::string corpus_file_name : corpus_file_names) {
         std::vector<std::string> actuals;
-        df.extractTerm(corpus_file_name, 10, &actuals);
+        df.extractTerm(corpus_file_name, 20, &actuals);
         std::cout << "Terms=[";
         for (std::string actual : actuals) {
             std::cout << actual << ", ";
