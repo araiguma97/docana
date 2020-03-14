@@ -37,12 +37,24 @@ void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double
     VectorizerUtility::toScores(vec, scores);
 }
 
-double DocumentAnalyzer::calcSim(const std::string& doc_path1, const std::string& doc_path2) {
-    std::vector<double> scores1;
-    std::vector<double> scores2;
-    vectorize(doc_path1, &scores1);
-    vectorize(doc_path2, &scores2);
+void DocumentAnalyzer::makeSimMatrix(const std::vector<std::string>& doc_paths, std::vector<std::vector<double>>* sim_matrix) {
+    std::vector<std::vector<double>> scores_list;
+    for (std::string doc_path: doc_paths) {
+        std::vector<double> scores;
+        vectorize(doc_path, &scores);
+        scores_list.push_back(scores);
+    }
 
     CosSimCalculator csc;
-    return csc.calculate(scores1, scores2); 
+    for (int i = 0; i < (int)doc_paths.size(); i++) {
+        std::vector<double> sim_list;
+        for (int j = 0; j < (int)doc_paths.size(); j++) {
+            if (i > j) {
+                sim_list.push_back(2);
+            } else {
+                sim_list.push_back(csc.calculate(scores_list[i], scores_list[j]));
+            }
+        }
+        sim_matrix->push_back(sim_list);
+    }
 }

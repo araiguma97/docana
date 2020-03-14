@@ -12,7 +12,7 @@ double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std
             noun_cnt++;
         }
     }
-    double tf = (double)noun_cnt / doc_nouns.size();
+    double tf = (double)noun_cnt / (double)doc_nouns.size();
 
     /* (2) idfの計算 */
     int doc_cnt = 0;
@@ -24,7 +24,7 @@ double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std
             }
         }
     }
-    double idf = std::log((double)corpus_nouns_list_.size() / (doc_cnt + 1));
+    double idf = std::log((double)corpus_nouns_list_.size() / ((double)doc_cnt + 1));
 
     return tf * idf;
 }

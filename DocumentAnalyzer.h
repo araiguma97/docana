@@ -36,12 +36,12 @@ public:
     void vectorize(const std::string& doc_path, std::vector<double>* scores);
 
     /**
-     * 2つの文書の類似度を計算する
-     * @param [in] doc_path1 1つ目の文書のパス
-     * @param [in] doc_path2 2つ目の文書のパス
+     * 文書群の類似度マトリックスを作成する
+     * @param [in] doc_paths 文書群のパス一覧
+     * @param [out] sim_matrix 類似度マトリックス
      * @return 類似度
      */
-    double calcSim(const std::string& doc_path1, const std::string& doc_path2);
+    void makeSimMatrix(const std::vector<std::string>& doc_paths, std::vector<std::vector<double>>* sim_matrix);
 private:
     std::vector<std::string> corpus_texts_;
     AbstractVectorizer* vectorizer_;

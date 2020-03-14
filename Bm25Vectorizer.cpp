@@ -13,7 +13,7 @@ double Bm25Vectorizer::calculate(const std::string& noun, const std::vector<std:
             noun_cnt++;
         }
     }
-    double tf = (double)noun_cnt / doc_nouns.size();
+    double tf = (double)noun_cnt / (double)doc_nouns.size();
 
     /* (2) idfの計算 */
     int doc_cnt = 0;
@@ -27,19 +27,18 @@ double Bm25Vectorizer::calculate(const std::string& noun, const std::vector<std:
         }
         sum_dl += (int)corpus_nouns.size();
     }
-    double corpus_num = corpus_nouns_list_.size();
-    double idf_numerator   = corpus_num - doc_cnt + 0.5;
-    double idf_denominator = doc_cnt + 0.5;
-    double idf = std::log((double)idf_numerator / idf_denominator);
-    idf = idf > 0 ? idf : 0;
+    double corpus_num = (double)corpus_nouns_list_.size();
+    double idf_numerator   = (double)corpus_num - (double)doc_cnt + 0.5;
+    double idf_denominator = (double)doc_cnt + 0.5;
+    double idf = std::log(idf_numerator / idf_denominator);
 
     /* (3) NDL (Normalized Document Length) の計算 */
-    double avgdl  = sum_dl / corpus_num;
-    double ndl = noun_cnt / avgdl;
+    double avgdl  = (double)sum_dl / (double)corpus_num;
+    double ndl = (double)noun_cnt / avgdl;
 
     /* (4) BM25スコアの計算 */
-    double numerator   = tf * idf * (k1_ + 1);
-    double denominator = tf + k1_ * (1 - b_ + b_ * ndl);
+    double numerator   = tf * idf * (k1_ + 1.0);
+    double denominator = tf + k1_ * (1.0 - b_ + b_ * ndl);
     double bm25_score = numerator / denominator;
 
     return bm25_score;

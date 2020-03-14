@@ -13,7 +13,7 @@
  */
 class AbstractVectorizer {
 public:
-    AbstractVectorizer() : dimention_(200) {};
+    AbstractVectorizer() : dimention_(1000) {};
     virtual ~AbstractVectorizer() {};
 
     /**
