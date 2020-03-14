@@ -1,17 +1,13 @@
-#vim:set noexpandtab :
-
-PROGRAM = docana
-OBJS = main.o DocanaTest.o NounExtractor.o DocumentElement.o BowVectorizer.o TfidfVectorizer.o TextFileReader.o VectorizerUtility.o DocumentAnalyzer.o CosSimCalculator.o DocumentSimilarity.o AbstractVectorizer.o Bm25Vectorizer.o
-
 CC = g++
-CFLAGS = -Wall -O2 -g -fsanitize=leak
+CFLAGS = -O2 -Wall -g
+OBJS = main.o DocanaTest.o NounExtractor.o DocumentElement.o BowVectorizer.o TfidfVectorizer.o TextFileReader.o VectorizerUtility.o DocumentAnalyzer.o CosSimCalculator.o DocumentSimilarity.o AbstractVectorizer.o Bm25Vectorizer.o
+PROGRAM = docana
+MCFLAGS = `mecab-config --cflags` `mecab-config --libs` 
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -o $@ -c $<
+all: $(PROGRAM)
 
 $(PROGRAM): $(OBJS)
-	$(CC) -o $(PROGRAM) `mecab-config --cflags` $^ `mecab-config --libs`
+	$(CC) $(OBJS) $(MCFLAGS)-o $(PROGRAM)
 
-.PHONY: clean
 clean:
-	$(RM) $(PROGRAM) $(OBJS)
+	rm -f *.o $(PROGRAM)
