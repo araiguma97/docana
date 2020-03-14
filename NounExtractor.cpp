@@ -43,10 +43,12 @@ bool NounExtractor::isNoun(const std::vector<std::string>& feature_values) {
     if (feature_values[0] != "名詞") {
         return false;
     }
-    if ((feature_values[1] != "一般") && (feature_values[1] != "サ変接続")) {
+    if ((feature_values[1] != "一般")
+     && (feature_values[1] != "サ変接続")
+     && (feature_values[1]) != "固有名詞") {
         return false;
     }
-    if (feature_values[6] == "＊") {
+    if (feature_values[6] == "*") {
         return false;
     }
 
