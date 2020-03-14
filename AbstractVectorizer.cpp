@@ -20,16 +20,12 @@ void AbstractVectorizer::initialize(const std::vector<std::string>& corpus_texts
         corpus_all_text += corpus_text;
     }
 
-    // BoWでベクトルの基となるベクトルを作る
+    // ベクトルの基となる名詞群を作る
     BowVectorizer bv;
     std::vector<DocumentElement> base_vec;
     bv.vectorize(corpus_all_text, &base_vec);
-    
-    // ベクトルを名詞群にする
     VectorizerUtility::uniqueSort(&base_vec);
-    dimention_ = (dimention_ < (int)base_vec.size()) ? dimention_ : base_vec.size();
-    base_vec.resize(dimention_); 
-    VectorizerUtility::toNouns(base_vec, &base_nouns_);
+    VectorizerUtility::toNouns(base_vec, dimention_, &base_nouns_);
 }
 
 void AbstractVectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {

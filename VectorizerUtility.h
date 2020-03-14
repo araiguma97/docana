@@ -22,10 +22,11 @@ public:
 
     /**
      * 文書ベクトルを名詞一覧にする
-     * @param [in]  vec   文書ベクトル
+     * @param [in] vec 文書ベクトル
+     * @param [in] size 名詞一覧のサイズ
      * @param [out] nouns 名詞一覧 
      */
-    static void toNouns(const std::vector<DocumentElement>& vec, std::vector<std::string>* nouns);
+    static void toNouns(const std::vector<DocumentElement>& vec, const int size, std::vector<std::string>* nouns);
 
     /**
      * 文書ベクトルを重要度一覧にする

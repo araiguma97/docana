@@ -12,36 +12,26 @@
 #include "CosSimCalculator.h"
 
 DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths, AbstractVectorizer* vectorizer) : vectorizer_(vectorizer){
-    // コーパスの読み込み
-    for (std::string corpus_path : corpus_paths) {
-        TextFileReader tfr;
-        std::string corpus_text = tfr.read(corpus_path);
-        corpus_texts_.push_back(corpus_text);
-    }
+    TextFileReader tfr;
+    tfr.read(corpus_paths, &corpus_texts_);
 
-    // ベクトライザの設定
     vectorizer_->initialize(corpus_texts_);
 }
 
-void DocumentAnalyzer::extractTerm(const std::string& doc_path, int size, std::vector<std::string>* terms) {
-    // 文書の読み込み
+void DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
     TextFileReader tfr;
     std::string doc_text = tfr.read(doc_path);
 
-    // ベクトル化した後、名詞一覧に変換
     std::vector<DocumentElement> vec;
     vectorizer_->vectorize(doc_text, &vec);
     VectorizerUtility::uniqueSort(&vec);
-    vec.resize(size);
-    VectorizerUtility::toNouns(vec, terms);
+    VectorizerUtility::toNouns(vec, size, terms);
 }
 
 void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double>* scores) {
-    // 文書の読み込み
     TextFileReader tfr;
     std::string doc_text = tfr.read(doc_path);
     
-    // ベクトル化した後、重要度一覧に変換
     std::vector<DocumentElement> vec;
     vectorizer_->vectorize(doc_text, &vec);
     VectorizerUtility::toScores(vec, scores);
@@ -49,8 +39,8 @@ void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double
 
 double DocumentAnalyzer::calcSim(const std::string& doc_path1, const std::string& doc_path2) {
     std::vector<double> scores1;
-    vectorize(doc_path1, &scores1);
     std::vector<double> scores2;
+    vectorize(doc_path1, &scores1);
     vectorize(doc_path2, &scores2);
 
     CosSimCalculator csc;

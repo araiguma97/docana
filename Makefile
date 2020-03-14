@@ -12,8 +12,6 @@ CFLAGS = -Wall -O2 -g -fsanitize=leak
 $(PROGRAM): $(OBJS)
 	$(CC) -o $(PROGRAM) `mecab-config --cflags` $^ `mecab-config --libs`
 
-%.o: %.h
-
 .PHONY: clean
 clean:
 	$(RM) $(PROGRAM) $(OBJS)

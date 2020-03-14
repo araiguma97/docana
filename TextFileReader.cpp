@@ -1,8 +1,8 @@
 #include "TextFileReader.h"
 
-#include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 std::string TextFileReader::read(const std::string& file_path) {
     std::string text;
@@ -19,4 +19,11 @@ std::string TextFileReader::read(const std::string& file_path) {
     }
     
     return text;
+}
+
+void TextFileReader::read(const std::vector<std::string>& file_paths, std::vector<std::string>* file_texts) {
+    for (std::string file_path : file_paths) {
+        std::string file_text = read(file_path);
+        file_texts->push_back(file_text);
+    }
 }
