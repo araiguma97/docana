@@ -18,5 +18,5 @@ public:
 private:
     double k1_ /* = 2.0 */;
     double b_  /* = 0.75 */;
-    double calculate(const std::string& noun, const std::string& doc_text);
+    double calculate(const std::string& noun, const std::vector<std::string>& doc_text) override;
 };

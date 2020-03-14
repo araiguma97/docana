@@ -13,5 +13,5 @@
  */
 class TfidfVectorizer : public AbstractVectorizer {
 private:
-    double calculate(const std::string& noun, const std::string& doc_text) override;
+    double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) override;
 };

@@ -4,11 +4,7 @@
 
 #include "NounExtractor.h"
 
-double TfidfVectorizer::calculate(const std::string& noun, const std::string& doc_text) {
-    NounExtractor ne;
-    std::vector<std::string> doc_nouns;
-    ne.extractNoun(doc_text, &doc_nouns);
-    
+double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
     /* (1) tfの計算 */
     int noun_cnt = 0;
     for (std::string doc_noun : doc_nouns) {

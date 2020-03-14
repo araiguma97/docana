@@ -34,5 +34,5 @@ protected:
     std::vector<std::vector<std::string>> corpus_nouns_list_;
     std::vector<std::string> base_nouns_;
     int dimention_ /* = 200 */;
-    virtual double calculate(const std::string& noun, const std::string& doc_text) = 0;
+    virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
 };
