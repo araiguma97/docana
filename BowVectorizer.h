@@ -6,13 +6,11 @@
 #include <string>
 #include <vector>
 
-#include "DocumentElement.h"
+#include "AbstractVectorizer.h"
 /**
  * Bug of Words (BoW) で文書をベクトル化するクラス。
  */
-class BowVectorizer {
-public:
-    void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
+class BowVectorizer : public AbstractVectorizer {
 private:
-    double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns);
+    double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) override;
 };
