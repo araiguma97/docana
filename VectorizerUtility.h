@@ -1,7 +1,6 @@
 /**
  * @file VectorizerUtiliry.h
  */
-
 #pragma once
 
 #include <string>
@@ -14,6 +13,12 @@
  */
 class VectorizerUtility {
 public:
+    /**
+     * 文書ベクトルをユニークし、降順にソートする
+     * @param [in,out] vec ユニークにして、降順にソートする文書ベクトル
+     */
+    static void uniqueSort(std::vector<std::string>* vec);
+
     /**
      * 文書ベクトルをユニークし、降順にソートする
      * @param [in,out] vec ユニークにして、降順にソートする文書ベクトル

@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "DocumentElement.h"
 
@@ -13,7 +14,7 @@
  */
 class AbstractVectorizer {
 public:
-    AbstractVectorizer() : dimention_(1000) {};
+    AbstractVectorizer() {};
     virtual ~AbstractVectorizer() {};
 
     /**
@@ -29,10 +30,9 @@ public:
      * @param [out] doc_vec   文書ベクトル
      */
     void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
-    void setDimention(int dimention) { dimention_ = dimention; };
 protected:
-    std::vector<std::vector<std::string>> corpus_nouns_list_;
-    std::vector<std::string> base_nouns_;
-    int dimention_ /* = 200 */;
+    int corpus_num_;
+    int sum_dl_;
+    std::map<std::string, int> dictionary_;
     virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
 };

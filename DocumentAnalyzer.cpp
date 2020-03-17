@@ -13,14 +13,14 @@
 
 DocumentAnalyzer::DocumentAnalyzer(const std::vector<std::string>& corpus_paths, AbstractVectorizer* vectorizer) : vectorizer_(vectorizer){
     TextFileReader tfr;
-    tfr.read(corpus_paths, &corpus_texts_);
+    tfr.readAll(corpus_paths, &corpus_texts_);
 
     vectorizer_->initialize(corpus_texts_);
 }
 
 void DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
     TextFileReader tfr;
-    std::string doc_text = tfr.read(doc_path);
+    std::string doc_text = tfr.readAll(doc_path);
 
     std::vector<DocumentElement> vec;
     vectorizer_->vectorize(doc_text, &vec);
@@ -30,7 +30,7 @@ void DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, 
 
 void DocumentAnalyzer::vectorize(const std::string& doc_path, std::vector<double>* scores) {
     TextFileReader tfr;
-    std::string doc_text = tfr.read(doc_path);
+    std::string doc_text = tfr.readAll(doc_path);
     
     std::vector<DocumentElement> vec;
     vectorizer_->vectorize(doc_text, &vec);

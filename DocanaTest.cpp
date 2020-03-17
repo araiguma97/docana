@@ -9,13 +9,14 @@
 #include "VectorizerFactory.h"
 
 void DocanaTest::debugAll() {
-	std::cout << "================================================================" << std::endl;
+    std::cout << "================================================================" << std::endl;
 	std::cout << "    Term Extraction" << std::endl;
 	std::cout << "================================================================" << std::endl;
     for (int i = 0; i < 3; i++) {
         debug_extractTerm((VectorizationMethod)i);
         std::cout << "----------------------------------------------------------------" << std::endl;
     }
+    #if 0
 	std::cout << "================================================================" << std::endl;
 	std::cout << "    Vectorization" << std::endl;
 	std::cout << "================================================================" << std::endl;
@@ -31,12 +32,13 @@ void DocanaTest::debugAll() {
         std::cout << "----------------------------------------------------------------" << std::endl;
     }
 	std::cout << "================================================================" << std::endl;
+    #endif
 }
 
 void DocanaTest::debug_extractTerm(enum VectorizationMethod method){
     std::vector<std::string> corpus_file_paths = {
-        "test/wagahaiwa_nekodearu.txt", "test/lemon.txt", "test/hashire_merosu.txt",
-        "test/wagahaiwa_nekodearu2.txt",
+        // "test/1.txt", "test/2.txt", "test/3.txt",
+        "test/4.txt", "test/5.txt"
     };
 
     VectorizerFactory vf;
@@ -55,8 +57,8 @@ void DocanaTest::debug_extractTerm(enum VectorizationMethod method){
 
 void DocanaTest::debug_vectorize(enum VectorizationMethod method) {
     std::vector<std::string> corpus_file_paths = {
-        "test/wagahaiwa_nekodearu.txt", "test/lemon.txt", "test/hashire_merosu.txt",
-        "test/wagahaiwa_nekodearu2.txt", 
+        "test/1.txt", "test/2.txt", "test/3.txt",
+        "test/4.txt",
     };
 
     VectorizerFactory vf;
@@ -76,8 +78,8 @@ void DocanaTest::debug_vectorize(enum VectorizationMethod method) {
 
 void DocanaTest::debug_calcSim(enum VectorizationMethod method) {
     std::vector<std::string> corpus_file_paths = {
-        "test/wagahaiwa_nekodearu.txt", "test/lemon.txt", "test/hashire_merosu.txt",
-        "test/wagahaiwa_nekodearu2.txt", 
+        "test/1.txt", "test/2.txt", "test/3.txt",
+        "test/4.txt",
     };
 
     VectorizerFactory vf;

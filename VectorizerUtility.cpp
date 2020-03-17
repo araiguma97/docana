@@ -6,6 +6,11 @@
 
 #include "DocumentElement.h"
 
+void VectorizerUtility::uniqueSort(std::vector<std::string>* vec) {
+    std::sort(vec->begin(), vec->end());
+    vec->erase(std::unique(vec->begin(), vec->end()), vec->end());
+}
+
 void VectorizerUtility::uniqueSort(std::vector<DocumentElement>* vec) {
     std::sort(vec->begin(), vec->end());
     vec->erase(std::unique(vec->begin(), vec->end()), vec->end());
@@ -14,7 +19,7 @@ void VectorizerUtility::uniqueSort(std::vector<DocumentElement>* vec) {
 void VectorizerUtility::toNouns(const std::vector<DocumentElement>& vec, const int size, std::vector<std::string>* nouns) {
     int cnt = 0;
     for (DocumentElement ele : vec) {
-        if (cnt > size) {
+        if (cnt >= size) {
             return;
         }
         nouns->push_back(ele.noun);
