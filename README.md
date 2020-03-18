@@ -2,7 +2,7 @@
 ## 特徴
 * 文書のベクトル化 (Bug of Words, tf-idf, Okapi BM25)
 * 文書の特徴語抽出
-* 文書の類似度計算 (コサイン類似度)
+* -文書の類似度計算 (コサイン類似度)-
 
 ## 使い方
 1. [MeCab](https://taku910.github.io/mecab/)をインストールする。
@@ -11,10 +11,7 @@
 ### サンプルコード
 ```C++
 #include <iostream>
-#include <string>
-#include <vector>
-
-#include "DocumentAnalyzer.h"
+#include "docana/DocumentAnalyzer.h"
 
 // "hashire_merosu.txt"から特徴語を10個抽出
 int main() {
