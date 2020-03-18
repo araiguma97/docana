@@ -14,14 +14,7 @@
  */
 class AbstractVectorizer {
 public:
-    AbstractVectorizer() {};
     virtual ~AbstractVectorizer() {};
-
-    /**
-     * ベクトライザを初期化する
-     * @param [in] corpus_texts コーパステキスト群
-     */
-    void initialize(const std::vector<std::string>& corpus_texts);
    
     /**
      * 文書テキストをベクトル化する 
@@ -31,8 +24,7 @@ public:
      */
     void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
 protected:
-    int corpus_num_;
-    int sum_dl_;
+    AbstractVectorizer();
     std::map<std::string, int> dictionary_;
     virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
 };

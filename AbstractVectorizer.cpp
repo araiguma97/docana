@@ -8,11 +8,9 @@
 #include "NounExtractor.h"
 #include "CorpusLoader.h"
 
-void AbstractVectorizer::initialize(const std::vector<std::string>& corpus_texts) {
+AbstractVectorizer::AbstractVectorizer() {
     CorpusLoader cl;
     cl.readDictionary(&dictionary_);
-    corpus_num_ = dictionary_["$corpus_num"];
-    sum_dl_ = dictionary_["$sum_dl"];
 }
 
 void AbstractVectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {

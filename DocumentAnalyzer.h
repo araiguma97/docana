@@ -9,16 +9,25 @@
 #include "DocumentElement.h"
 #include "AbstractVectorizer.h"
 
+enum VectorizationMethod {
+    BOW = 0, 
+    TFIDF,
+    BM25
+};
+
 /**
- * 文書を解析する処理をまとめたクラス。
+ * 文書を解析する処理についてのFacadeクラス。
  */
 class DocumentAnalyzer {
 public:
+    DocumentAnalyzer() : DocumentAnalyzer(BM25) {};
+
     /**
-     * @param [in] corpus_paths コーパスのパス一覧
      * @param [in] vectorizer   ベクトライザ 
      */
-    DocumentAnalyzer(const std::vector<std::string>& corpus_paths, AbstractVectorizer* vectorizer);
+    DocumentAnalyzer(enum VectorizationMethod method);
+
+    ~DocumentAnalyzer();
 
     /**
      * 文書の特徴語を抽出する
@@ -34,15 +43,6 @@ public:
      * @param [out] scores   文書ベクトル
      */
     void vectorize(const std::string& doc_path, std::vector<double>* scores);
-
-    /**
-     * 文書群の類似度マトリックスを作成する
-     * @param [in] doc_paths 文書群のパス一覧
-     * @param [out] sim_matrix 類似度マトリックス
-     * @return 類似度
-     */
-    void makeSimMatrix(const std::vector<std::string>& doc_paths, std::vector<std::vector<double>>* sim_matrix);
 private:
-    std::vector<std::string> corpus_texts_;
     AbstractVectorizer* vectorizer_;
 };
