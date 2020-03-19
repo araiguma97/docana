@@ -7,6 +7,7 @@
 #include "DocumentElement.h"
 #include "NounExtractor.h"
 #include "CorpusLoader.h"
+#include "VectorizerUtility.h"
 
 AbstractVectorizer::AbstractVectorizer() {
     CorpusLoader cl;

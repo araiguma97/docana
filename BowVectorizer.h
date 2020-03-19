@@ -14,3 +14,4 @@ class BowVectorizer : public AbstractVectorizer {
 private:
     double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) override;
 };
+

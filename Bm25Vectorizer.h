@@ -20,3 +20,4 @@ private:
     double b_  /* = 0.75 */;
     double calculate(const std::string& noun, const std::vector<std::string>& doc_text) override;
 };
+

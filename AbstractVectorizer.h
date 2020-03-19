@@ -28,3 +28,4 @@ protected:
     std::map<std::string, int> dictionary_;
     virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
 };
+

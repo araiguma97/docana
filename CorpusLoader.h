@@ -12,3 +12,4 @@ public:
     void createDictionary(const std::string& find_file_path);
     bool readDictionary(std::map<std::string, int>* dict);
 };
+

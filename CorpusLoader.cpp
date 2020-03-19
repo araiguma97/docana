@@ -38,7 +38,7 @@ void CorpusLoader::createDictionary(const std::string& find_file_path) {
         NounExtractor ne;
         std::vector<std::string> corpus_nouns;
         ne.extractNoun(corpus_text, &corpus_nouns);
-        VectorizerUtility::uniqueSort(&corpus_nouns);
+        VectorizerUtility::unique(&corpus_nouns);
         sum_dl += corpus_nouns.size();
         for (auto corpus_noun : corpus_nouns) {
             dict[corpus_noun]++;
@@ -75,3 +75,4 @@ bool CorpusLoader::readDictionary(std::map<std::string, int>* dict) {
         (*dict)[dict_values[0]] = std::stoi(dict_values[1]);
     }
 }
+

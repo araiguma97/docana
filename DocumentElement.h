@@ -19,14 +19,8 @@ struct DocumentElement {
         this->score = score;
     }
 
-    bool operator<(const DocumentElement& another) const {
-        if (score != another.score) {
-            return score > another.score;
-        }
-        return noun < another.noun;       
-    }
-
     bool operator==(const DocumentElement& another) const {
         return noun == another.noun;
     }
 };
+

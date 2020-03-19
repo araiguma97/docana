@@ -2,7 +2,6 @@
 
 #include <cmath>
 #include <string>
-#include <iostream>
 
 #include "NounExtractor.h"
 
@@ -34,3 +33,4 @@ double Bm25Vectorizer::calculate(const std::string& noun, const std::vector<std:
 
     return bm25_score;
 }
+

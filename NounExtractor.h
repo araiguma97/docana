@@ -1,7 +1,6 @@
 /**
  * @file NounExtractor.h
  */
-
 #pragma once
 
 #include <string>
@@ -30,3 +29,4 @@ public:
 private:
     bool isNoun(const std::vector<std::string>& feature_values);
 };
+

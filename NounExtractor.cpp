@@ -43,3 +43,4 @@ bool NounExtractor::isNoun(const std::vector<std::string>& feature_values) {
 
     return true;
 } 
+

@@ -14,3 +14,4 @@ double BowVectorizer::calculate(const std::string& noun, const std::vector<std::
 
     return noun_cnt;
 }
+
