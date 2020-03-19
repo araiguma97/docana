@@ -1,11 +1,11 @@
-#include "VectorizerUtility.h"
+#include "vector_utility.h"
 
 #include <string>
 #include <vector>
 #include <algorithm>
 
-#include "DocumentElement.h"
-#include "DocumentsPair.h"
+#include "document_element.h"
+#include "documents_pair.h"
 
 void VectorizerUtility::unique(std::vector<std::string>* vec) {
     std::sort(vec->begin(), vec->end());

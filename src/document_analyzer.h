@@ -1,13 +1,13 @@
 /**
- * @file DocumentAnalyzer.h
+ * @file document_analyzer.h
  */
 #pragma once
 
 #include <string>
 #include <vector>
 
-#include "DocumentElement.h"
-#include "AbstractVectorizer.h"
+#include "document_element.h"
+#include "vectorizer.h"
 
 enum VectorizationMethod {
     BOW = 0, 
@@ -52,7 +52,7 @@ public:
      */
     void findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths);
 private:
-    AbstractVectorizer* vectorizer_;
+    Vectorizer* vectorizer_;
     double calculateSimirality(const std::vector<DocumentElement>& vec1, const std::vector<DocumentElement>& vec2);
 };
 

@@ -1,19 +1,19 @@
-#include "DocumentAnalyzer.h"
+#include "document_analyzer.h"
 
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
-#include "DocumentElement.h"
-#include "AbstractVectorizer.h"
-#include "Bm25Vectorizer.h"
-#include "TfidfVectorizer.h"
-#include "BowVectorizer.h"
-#include "TextFileReader.h"
-#include "VectorizerUtility.h"
-#include "CosSimCalculator.h"
-#include "DocumentsPair.h"
+#include "document_element.h"
+#include "vectorizer.h"
+#include "bm25_vectorizer.h"
+#include "tfidf_vectorizer.h"
+#include "bow_vectorizer.h"
+#include "text_file_reader.h"
+#include "vector_utility.h"
+#include "cosine_similarity_calculator.h"
+#include "documents_pair.h"
 
 DocumentAnalyzer::DocumentAnalyzer(enum VectorizationMethod method) {
     switch (method) {

@@ -1,5 +1,5 @@
 /**
- * @file DocumentsPair.h
+ * @file documents_pair.h
  */
 #pragma once
 

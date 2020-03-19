@@ -1,5 +1,5 @@
 /**
- * @file NounExtractor.h
+ * @file noun_extractor.h
  */
 #pragma once
 

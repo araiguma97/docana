@@ -1,5 +1,5 @@
 /**
- * @file TextFileReader.h
+ * @file text_file_reader.h
  */
 #pragma once
 

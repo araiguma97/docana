@@ -1,13 +1,13 @@
 /**
- * @file VectorizerUtiliry.h
+ * @file vector_utiliry.h
  */
 #pragma once
 
 #include <string>
 #include <vector>
 
-#include "DocumentElement.h"
-#include "DocumentsPair.h"
+#include "document_element.h"
+#include "documents_pair.h"
 
 /**
  * 文書ベクトルに関する便利クラス。

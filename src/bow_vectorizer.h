@@ -1,16 +1,16 @@
 /**
- * @file BowVectorizer.h
+ * @file bow_vectorizer.h
  */
 #pragma once
 
 #include <string>
 #include <vector>
 
-#include "AbstractVectorizer.h"
+#include "vectorizer.h"
 /**
  * Bug of Words (BoW) で文書をベクトル化するクラス。
  */
-class BowVectorizer : public AbstractVectorizer {
+class BowVectorizer : public Vectorizer {
 private:
     double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) override;
 };

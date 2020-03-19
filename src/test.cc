@@ -1,11 +1,19 @@
-#include "DocanaTest.h"
+#include "test.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include "DocumentAnalyzer.h"
-#include "VectorizerUtility.h"
+#include "document_analyzer.h"
+#include "vector_utility.h"
+
+class Test {
+public:
+    static void debug_commonalize();
+    static void debugAll();
+    static void debug_extractTerm(enum VectorizationMethod method);
+    static void debug_findSimilarDocuments();
+};
 
 void DocanaTest::debugAll() {
     debug_commonalize();

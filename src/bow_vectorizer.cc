@@ -1,4 +1,4 @@
-#include "BowVectorizer.h"
+#include "bow_vectorizer.h"
 
 #include <string>
 #include <vector>

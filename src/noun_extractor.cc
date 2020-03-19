@@ -1,11 +1,11 @@
-#include "NounExtractor.h"
+#include "noun_extractor.h"
 
 #include <string>
 #include <vector>
 
 #include <mecab.h>
 
-#include "TextFileReader.h"
+#include "text_file_reader.h"
 
 void NounExtractor::extractNoun(const std::string& str, std::vector<std::string>* nouns) {
     MeCab::Tagger* tagger = MeCab::createTagger("");

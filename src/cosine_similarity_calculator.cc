@@ -1,4 +1,4 @@
-#include "CosSimCalculator.h"
+#include "cosine_similarity_calculator.h"
 
 #include <cmath>
 #include <vector>

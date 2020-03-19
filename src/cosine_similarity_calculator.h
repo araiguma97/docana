@@ -1,5 +1,5 @@
 /**
- * @file CosSimCalculator.h
+ * @file cosine_similarity_calculator.h
  */
 
 #pragma once

@@ -1,4 +1,4 @@
-#include "CorpusLoader.h"
+#include "dictionary_editor.h"
 
 #include <dirent.h>
 
@@ -7,13 +7,13 @@
 #include <vector>
 #include <map>
 
-#include "DocumentElement.h"
-#include "TextFileReader.h"
-#include "TextFileWriter.h"
-#include "NounExtractor.h"
-#include "VectorizerUtility.h"
+#include "document_element.h"
+#include "text_file_reader.h"
+#include "text_file_writer.h"
+#include "noun_extractor.h"
+#include "vector_utility.h"
 
-void CorpusLoader::createDictionary(const std::string& find_file_path) {
+void DictionaryEditor::createDictionary(const std::string& find_file_path) {
     // コーパスのパス読み込み
     TextFileReader tfr;
     std::vector<std::string> corpus_paths;
@@ -62,7 +62,7 @@ void CorpusLoader::createDictionary(const std::string& find_file_path) {
     tfw.writeCsv(dict_values_list);
 }
 
-bool CorpusLoader::readDictionary(std::map<std::string, int>* dict) {
+bool DictionaryEditor::readDictionary(std::map<std::string, int>* dict) {
     if (dict == nullptr) {
         return false;
     }

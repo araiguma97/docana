@@ -1,20 +1,19 @@
 /**
- * @file Bm25Vectorizer.h
+ * @file bm25_vectorizer.h
  */
 #pragma once
 
 #include <string>
 #include <vector>
 
-#include "AbstractVectorizer.h"
+#include "vectorizer.h"
 
 /**
  * Okapi BM25で文書をベクトル化するクラス。
  */
-class Bm25Vectorizer : public AbstractVectorizer {
+class Bm25Vectorizer : public Vectorizer {
 public:
-    Bm25Vectorizer() : AbstractVectorizer(), k1_(2.0), b_(0.75) {};
-    void setPram(double k1, double b) { k1_ = k1; b_ = b; };
+    Bm25Vectorizer() : Vectorizer(), k1_(2.0), b_(0.75) {};
 private:
     double k1_ /* = 2.0 */;
     double b_  /* = 0.75 */;

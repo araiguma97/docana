@@ -1,11 +1,11 @@
 /**
- * @file DocanaTest.h
+ * @file test.h
  */
 #pragma once
 
 #include <string>
 
-#include "DocumentAnalyzer.h"
+#include "document_analyzer.h"
 
 /**
  * Test class.
@@ -17,4 +17,3 @@ public:
     static void debug_extractTerm(enum VectorizationMethod method);
     static void debug_findSimilarDocuments();
 };
-

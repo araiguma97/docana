@@ -1,5 +1,5 @@
 /**
- * @file TextFileWriter.h
+ * @file text_file_writer.h
  */
 #pragma once
 

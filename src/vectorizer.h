@@ -1,5 +1,5 @@
 /**
- * @file AbstractVectorizer.h
+ * @file vectorizer.h
  */
 #pragma once
 
@@ -7,14 +7,14 @@
 #include <vector>
 #include <map>
 
-#include "DocumentElement.h"
+#include "document_element.h"
 
 /**
  * 文書をベクトル化する抽象クラス。
  */
-class AbstractVectorizer {
+class Vectorizer {
 public:
-    virtual ~AbstractVectorizer() {};
+    virtual ~Vectorizer() {};
    
     /**
      * 文書テキストをベクトル化する 
@@ -24,7 +24,7 @@ public:
      */
     void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
 protected:
-    AbstractVectorizer();
+    Vectorizer();
     std::map<std::string, int> dictionary_;
     virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
 };

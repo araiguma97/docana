@@ -1,5 +1,5 @@
-#include "DocanaTest.h"
-#include "CorpusLoader.h"
+#include "test.h"
+#include "dictionary_editor.h"
 
 int main() {
     // CorpusLoader cl;
