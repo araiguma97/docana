@@ -19,3 +19,4 @@ public:
      */
     double calculate(const std::vector<double>& vec1, const std::vector<double>& vec2);
 };
+

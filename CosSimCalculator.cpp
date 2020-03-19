@@ -26,3 +26,4 @@ double CosSimCalculator::calculate(const std::vector<double>& vec1, const std::v
 
     return numerator / denominator;
 }
+

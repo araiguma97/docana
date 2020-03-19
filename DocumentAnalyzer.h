@@ -43,6 +43,16 @@ public:
      * @param [out] scores   文書ベクトル
      */
     void vectorize(const std::string& doc_path, std::vector<double>* scores);
+
+    /**
+     * 似ている文書を探す
+     * @param [in] doc_path 文書のパス
+     * @param [in] target_paths 探索対象とするパス群
+     * @param [out] similar_paths 似ている順にソートされたパス群
+     */
+    void findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths);
 private:
     AbstractVectorizer* vectorizer_;
+    double calculateSimirality(const std::vector<DocumentElement>& vec1, const std::vector<DocumentElement>& vec2);
 };
+
