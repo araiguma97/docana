@@ -46,7 +46,7 @@ void DocanaTest::debug_commonalize() {
 void DocanaTest::debug_extractTerm(enum VectorizationMethod method){
     DocumentAnalyzer da(method);
     std::vector<std::string> terms;
-    da.extractTerm("test/5.txt", 10, &terms);
+    da.extractTerm("../test/5.txt", 10, &terms);
     for (auto term : terms) {
         std::cout << term << " ";
     }
@@ -55,8 +55,8 @@ void DocanaTest::debug_extractTerm(enum VectorizationMethod method){
 
 void DocanaTest::debug_findSimilarDocuments(){
     std::vector<std::string> doc_paths = {
-        "test/1.txt", "test/2.txt", "test/3.txt", 
-        "test/4.txt", "test/5.txt", 
+        "../test/1.txt", "../test/2.txt", "../test/3.txt", 
+        "../test/4.txt", "../test/5.txt", 
     };
     DocumentAnalyzer da;
     std::vector<std::string> similar_paths;

@@ -69,7 +69,7 @@ bool CorpusLoader::readDictionary(std::map<std::string, int>* dict) {
 
     TextFileReader tfr;
     std::vector<std::vector<std::string>> dict_values_list;
-    tfr.readCsv("dict", &dict_values_list);
+    tfr.readCsv("../dict", &dict_values_list);
 
     for (auto dict_values : dict_values_list) {
         (*dict)[dict_values[0]] = std::stoi(dict_values[1]);
