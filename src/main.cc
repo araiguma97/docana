@@ -4,5 +4,5 @@
 int main() {
     // CorpusLoader cl;
     // cl.createDictionary("./find.txt");
-    DocanaTest::debugAll();
+   Test::debugAll();
 }

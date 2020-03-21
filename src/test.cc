@@ -7,15 +7,7 @@
 #include "document_analyzer.h"
 #include "vector_utility.h"
 
-class Test {
-public:
-    static void debug_commonalize();
-    static void debugAll();
-    static void debug_extractTerm(enum VectorizationMethod method);
-    static void debug_findSimilarDocuments();
-};
-
-void DocanaTest::debugAll() {
+void Test::debugAll() {
     debug_commonalize();
     debug_extractTerm(BOW);
     debug_extractTerm(TFIDF);
@@ -23,7 +15,7 @@ void DocanaTest::debugAll() {
     debug_findSimilarDocuments();
 }
 
-void DocanaTest::debug_commonalize() {
+void Test::debug_commonalize() {
     std::vector<DocumentElement> vec1;
     std::vector<DocumentElement> vec2;
     DocumentElement ele1("りんご", 0.1);
@@ -51,7 +43,7 @@ void DocanaTest::debug_commonalize() {
     }
 }
 
-void DocanaTest::debug_extractTerm(enum VectorizationMethod method){
+void Test::debug_extractTerm(enum VectorizationMethod method){
     DocumentAnalyzer da(method);
     std::vector<std::string> terms;
     da.extractTerm("../test/5.txt", 10, &terms);
@@ -61,7 +53,7 @@ void DocanaTest::debug_extractTerm(enum VectorizationMethod method){
     std::cout << std::endl;
 }
 
-void DocanaTest::debug_findSimilarDocuments(){
+void Test::debug_findSimilarDocuments(){
     std::vector<std::string> doc_paths = {
         "../test/1.txt", "../test/2.txt", "../test/3.txt", 
         "../test/4.txt", "../test/5.txt", 

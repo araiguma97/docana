@@ -10,7 +10,7 @@
 /**
  * Test class.
  */
-class DocanaTest {
+class Test {
 public:
     static void debug_commonalize();
     static void debugAll();
