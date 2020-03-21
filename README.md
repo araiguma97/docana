@@ -1,4 +1,4 @@
- docana
+# docana
 ## 特徴
 * 文書のベクトル化 (Bug of Words, tf-idf, Okapi BM25)
 * 文書の特徴語抽出
