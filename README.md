@@ -11,7 +11,7 @@
 ### サンプルコード
 ```C++
 #include <iostream>
-#include "DocumentAnalyzer.h"
+#include "document_analyzer.h"
 
 
 int main() {
