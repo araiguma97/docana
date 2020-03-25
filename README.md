@@ -5,8 +5,7 @@
 * 文書の類似度計算 (コサイン類似度)
 
 ## 使い方
-1. [MeCab](https://taku910.github.io/mecab/)をインストールする。
-2. `git clone https://github.com/araiguma97/docana.git` する。
+[MeCab](https://taku910.github.io/mecab/)のインストールが必要です。
 
 ### サンプルコード
 ```C++
