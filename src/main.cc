@@ -1,5 +1,5 @@
 #include "test.h"
-#include "dictionary_editor.h"
+#include "dictionary_generator.h"
 
 int main() {
     // CorpusLoader cl;

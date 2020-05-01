@@ -1,3 +1,2 @@
-docana
-*.o
-aozorabunko_text
+build/
+aozorabunko_text/

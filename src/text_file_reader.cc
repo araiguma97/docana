@@ -9,7 +9,7 @@ std::string TextFileReader::readAll(const std::string& file_path) {
 
     std::ifstream file(file_path, std::ios::in);
     if (! file) {
-        return text;
+        return text;  // 空文字
     }
 
     std::string line;

@@ -46,7 +46,7 @@ void Test::debug_commonalize() {
 void Test::debug_extractTerm(enum VectorizationMethod method){
     DocumentAnalyzer da(method);
     std::vector<std::string> terms;
-    da.extractTerm("../test/5.txt", 10, &terms);
+    da.extractTerm("../../test/5.txt", 10, &terms);
     for (auto term : terms) {
         std::cout << term << " ";
     }
@@ -55,15 +55,14 @@ void Test::debug_extractTerm(enum VectorizationMethod method){
 
 void Test::debug_findSimilarDocuments(){
     std::vector<std::string> doc_paths = {
-        "../test/1.txt", "../test/2.txt", "../test/3.txt", 
-        "../test/4.txt", "../test/5.txt", 
+        "../../test/1.txt", "../../test/2.txt", "../../test/3.txt", 
+        "../../test/4.txt", "../../test/5.txt", 
     };
     DocumentAnalyzer da;
     std::vector<std::string> similar_paths;
-    da.findSimilarDocuments("test/1.txt", doc_paths, &similar_paths);
+    da.findSimilarDocuments("../../test/1.txt", doc_paths, &similar_paths);
     for (auto similar_path : similar_paths) {
-        std::cout << similar_path << " ";
+        std::cout << similar_path << std::endl;
     }
-    std::cout << std::endl;
 }
 

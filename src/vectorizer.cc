@@ -6,7 +6,7 @@
 
 #include "document_element.h"
 #include "noun_extractor.h"
-#include "dictionary_editor.h"
+#include "dictionary_generator.h"
 #include "vector_utility.h"
 
 Vectorizer::Vectorizer() {
