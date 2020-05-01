@@ -79,3 +79,4 @@ bool VectorizerUtility::contains(const std::string& noun, const std::vector<Docu
     }
     return false;
 }
+

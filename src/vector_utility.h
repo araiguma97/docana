@@ -23,7 +23,7 @@ public:
     static void unique(std::vector<DocumentsPair>* vec);
 
     /**
-     * 2つの文書ベクトルを共通化する
+     * 2つの文書ベクトルを共通化する。
      * @param [in, out] vec1 1つ目の文書ベクトル
      * @param [in, out] vec2 2つ目の文書ベクトル
      */

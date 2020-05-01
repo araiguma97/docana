@@ -1,8 +1,9 @@
-#include "test.h"
 #include "dictionary_generator.h"
+
+#include <iostream>
 
 int main() {
     // CorpusLoader cl;
     // cl.createDictionary("./find.txt");
-   Test::debugAll();
+    std::cout << "test" << std::endl;
 }

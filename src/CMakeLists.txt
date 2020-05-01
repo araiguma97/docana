@@ -1,11 +1,9 @@
-cmake_minimum_required(VERSION 2.8)
-project(docana CXX)
+cmake_minimum_required(VERSION 3.10)
+
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
-add_executable(
-    docana
+add_library(docana STATIC
     main.cc
-    test.cc
     noun_extractor.cc
     document_element.cc
     bow_vectorizer.cc
@@ -20,4 +18,5 @@ add_executable(
     documents_pair.cc
     dictionary_generator.cc
 )
+
 target_link_libraries(docana mecab)
