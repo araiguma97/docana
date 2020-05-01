@@ -34,8 +34,9 @@ public:
      * @param [in] doc_path 文書のパス 
      * @param [in] size     抽出する特徴語の数
      * @param [out] terms    特徴語一覧
+     * @return true(成功)/false(失敗)
      */
-    void extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms);
+    bool extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms);
 
     /**
      * tf-idfで文書をベクトル化する

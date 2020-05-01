@@ -33,9 +33,14 @@ DocumentAnalyzer::~DocumentAnalyzer() {
     delete vectorizer_;
 }
 
-void DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
+bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
     TextFileReader tfr;
     std::string doc_text = tfr.readAll(doc_path);
+
+    if (doc_text == "") {
+        std::cerr << "[ERROR] Document (=\"" << doc_path << "\") not found." << std::endl;    
+        return false;
+    }
 
     std::vector<DocumentElement> vec;
     vectorizer_->vectorize(doc_text, &vec);
@@ -44,6 +49,8 @@ void DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, 
         return lhs.score > rhs.score;
     });
     VectorizerUtility::toNouns(vec, size, terms);
+    
+    return true;
 }
 
 void DocumentAnalyzer::findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths) {
