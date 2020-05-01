@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 add_library(docana STATIC
-    main.cc
     noun_extractor.cc
     document_element.cc
     bow_vectorizer.cc
