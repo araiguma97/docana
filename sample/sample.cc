@@ -28,7 +28,7 @@ void DocanaSample::generateDict() {
 
 int main() {
     DocanaSample da_sample;
-    //da_sample.generateDict(); 
+    // da_sample.generateDict(); 
     std::cout << "Bag of Words: "; 
     da_sample.printTerm(BOW);
     std::cout << "tf-idf: "; 

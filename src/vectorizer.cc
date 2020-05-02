@@ -11,7 +11,7 @@
 
 Vectorizer::Vectorizer() {
     DictionaryGenerator dg;
-    dg.read("../../dict.csv", &dict_);
+    dg.read(&dict_);
 }
 
 void Vectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {

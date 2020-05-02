@@ -85,19 +85,19 @@ bool DictionaryGenerator::generate() {
         dict_values.push_back(std::to_string(item.second));
         dict_values_list.push_back(dict_values);
     }
-    TextFileUtility::writeCsv(dict_name_, dict_values_list);
+    TextFileUtility::writeCsv(dict_path_, dict_values_list);
 
     return true;
 }
 
-bool DictionaryGenerator::read(const std::string& dict_path, std::map<std::string, int>* dict) {
+bool DictionaryGenerator::read(std::map<std::string, int>* dict) {
     if (dict == nullptr) {
         std::cerr << "[ERROR] Dictionary map is NULL." << std::endl;    
         return false;
     }
 
     std::vector<std::vector<std::string>> dict_values_list;
-    if (! TextFileUtility::readCsv(dict_path, &dict_values_list)) {
+    if (! TextFileUtility::readCsv(dict_path_, &dict_values_list)) {
         std::cerr << "[ERROR] Dictionary file not found." << std::endl;    
         return false;
     }
