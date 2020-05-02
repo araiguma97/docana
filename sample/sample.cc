@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include <document_analyzer.h>
+#include <term_extractor.h>
 #include <dictionary_generator.h>
 
 class DocanaSample {
@@ -12,9 +12,9 @@ public:
 };
 
 void DocanaSample::printTerm(enum VectorizationMethod method) {
-    DocumentAnalyzer da(method);
+    TermExtractor te(method);
     std::vector<std::string> terms;
-    da.extractTerm("../../sample/res/4.txt", 10, &terms);
+    te.extract("../../sample/res/4.txt", 10, &terms);
     for (auto term : terms) {
         std::cout << term << " "; 
     }

@@ -105,5 +105,7 @@ bool DictionaryGenerator::read(std::map<std::string, int>* dict) {
     for (auto dict_values : dict_values_list) {
         (*dict)[dict_values[0]] = std::stoi(dict_values[1]);
     }
+
+    return true;
 }
 
