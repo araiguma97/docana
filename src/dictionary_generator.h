@@ -7,9 +7,13 @@
 #include <vector>
 #include <map>
 
-class DictionaryEditor {
+class DictionaryGenerator {
 public:
-    void createDictionary(const std::string& find_file_path);
-    bool readDictionary(std::map<std::string, int>* dict);
+    bool generate();
+    bool read(const std::string& dict_path, std::map<std::string, int>* dict);
+
+private:
+    std::string dict_name_ = "./dict.csv";
+    std::string corpus_paths_filename_ = "./corpus_paths.txt";
 };
 

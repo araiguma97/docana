@@ -4,13 +4,13 @@
 
 #include "gtest/gtest.h"
 
-#include "document_analyzer.h"
 #include "vector_utility.h"
 #include "document_element.h"
 
 namespace {
 
-class DocumentAnalyzerTest : public ::testing::Test{};
+class DocumentAnalyzerTest : public ::testing::Test{
+};
 
 TEST_F(DocumentAnalyzerTest, commonalize) {
     std::vector<DocumentElement> vec1;
@@ -44,10 +44,6 @@ TEST_F(DocumentAnalyzerTest, commonalize) {
     for (int i = 0; i < vec1.size(); i++) {
         ASSERT_EQ(vec1[i].noun, vec2[i].noun);
     }
-}
-
-TEST_F(DocumentAnalyzerTest, fail) {
-    ASSERT_TRUE(false);
 }
 
 }  // namespace

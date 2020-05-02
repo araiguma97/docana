@@ -10,8 +10,8 @@
 #include "vector_utility.h"
 
 Vectorizer::Vectorizer() {
-    DictionaryEditor de;
-    de.readDictionary(&dictionary_);
+    DictionaryGenerator dg;
+    dg.read("../../dict.csv", &dict_);
 }
 
 void Vectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {

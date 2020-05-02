@@ -10,7 +10,7 @@
 #include "bm25_vectorizer.h"
 #include "tfidf_vectorizer.h"
 #include "bow_vectorizer.h"
-#include "text_file_reader.h"
+#include "text_file_utility.h"
 #include "vector_utility.h"
 #include "cosine_similarity_calculator.h"
 #include "documents_pair.h"
@@ -34,10 +34,9 @@ DocumentAnalyzer::~DocumentAnalyzer() {
 }
 
 bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
-    TextFileReader tfr;
-    std::string doc_text = tfr.readAll(doc_path);
+    std::string doc_text = TextFileUtility::read(doc_path);
 
-    if (doc_text == "") {
+    if (doc_text.empty()) {
         std::cerr << "[ERROR] Document (=\"" << doc_path << "\") not found." << std::endl;    
         return false;
     }
@@ -54,14 +53,13 @@ bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, 
 }
 
 void DocumentAnalyzer::findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths) {
-    TextFileReader tfr;
-    std::string doc_text = tfr.readAll(doc_path);
+    std::string doc_text = TextFileUtility::read(doc_path);
     std::vector<DocumentElement> vec1;
     vectorizer_->vectorize(doc_text, &vec1);
 
     std::vector<DocumentsPair> doc_pairs;
     for (auto target_path : target_paths) {
-        std::string target_text = tfr.readAll(target_path);
+        std::string target_text = TextFileUtility::read(target_path);
         std::vector<DocumentElement> vec2;
         vectorizer_->vectorize(target_text, &vec2);
 

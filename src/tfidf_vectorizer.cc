@@ -14,7 +14,7 @@ double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std
     }
     double tf = (double)noun_cnt / (double)doc_nouns.size();
 
-    double idf = std::log((double)dictionary_["$corpus_num"] / ((double)dictionary_[noun] + 1));
+    double idf = std::log((double)dict_["$corpus_num"] / ((double)dict_[noun] + 1));
 
     return tf * idf;
 }

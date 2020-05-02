@@ -8,7 +8,7 @@
 
 #include "vectorizer.h"
 /**
- * Bug of Words (BoW) で文書をベクトル化するクラス。
+ * Bag of Words (BoW) で文書をベクトル化するクラス。
  */
 class BowVectorizer : public Vectorizer {
 private:

@@ -36,7 +36,8 @@ bool TextFileUtility::readLineByLine(const std::string& file_path, std::vector<s
     return true;
 }
 
-bool TextFileUtility::readCsv(const std::string& file_path, std::vector<std::vector<std::string>>* values_list) {
+bool TextFileUtility::readCsv(const std::string& file_path,
+                              std::vector<std::vector<std::string>>* values_list) {
     std::string text;
 
     std::ifstream file(file_path, std::ios::in);
@@ -54,10 +55,11 @@ bool TextFileUtility::readCsv(const std::string& file_path, std::vector<std::vec
     return true;
 }
 
-void TextFileUtility::writeCsv(const std::vector<std::vector<std::string>>& values_list) {
+void TextFileUtility::writeCsv(const std::string& file_path,
+                               const std::vector<std::vector<std::string>>& values_list) {
     std::string text;
 
-    std::ofstream file("dict");
+    std::ofstream file(file_path);
 
     for (auto values : values_list) {
         for (auto value : values) {

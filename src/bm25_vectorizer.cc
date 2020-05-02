@@ -16,14 +16,14 @@ double Bm25Vectorizer::calculate(const std::string& noun, const std::vector<std:
     double tf = (double)noun_cnt / (double)doc_nouns.size();
 
     /* (2) idfの計算 */
-    int corpus_num = dictionary_["$corpus_num"];
-    int doc_num = dictionary_[noun];
+    int corpus_num = dict_["$corpus_num"];
+    int doc_num = dict_[noun];
     double idf_numerator   = (double)corpus_num - (double)doc_num + 0.5;
     double idf_denominator = (double)doc_num + 0.5;
     double idf = std::log(idf_numerator / idf_denominator);
 
     /* (3) NDL (Normalized Document Length) の計算 */
-    double avgdl  = (double)dictionary_["$sum_dl"] / (double)corpus_num;
+    double avgdl  = (double)dict_["$sum_dl"] / (double)corpus_num;
     double ndl = (double)noun_cnt / avgdl;
 
     /* (4) BM25スコアの計算 */

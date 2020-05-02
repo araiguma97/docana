@@ -8,32 +8,59 @@
 #include <map>
 
 #include "document_element.h"
-#include "text_file_reader.h"
-#include "text_file_writer.h"
+#include "text_file_utility.h"
 #include "noun_extractor.h"
 #include "vector_utility.h"
 
-void DictionaryEditor::createDictionary(const std::string& find_file_path) {
-    // コーパスのパス読み込み
-    TextFileReader tfr;
-    std::vector<std::string> corpus_paths;
-    tfr.readLines(find_file_path, &corpus_paths);
-    
-    // コーパステキスト読み込み
-    std::cout << "Loading Corpus.... " << std::endl;
-    std::vector<std::string> corpus_texts;
-    for (std::string corpus_path : corpus_paths) {
-        std::string corpus_text = tfr.readAll(corpus_path);
-        if (! corpus_text.empty()) {
-            corpus_texts.push_back(corpus_text);
-        }
+class ProgressCounter {
+public:
+    ProgressCounter(int goal) {
+        goal_ = goal;
+    } 
+
+    void count() {
+        std::cout << cnt_ << "/" << goal_ << "\r";
+        cnt_++;
     }
     
+    void end() {
+        std::cout << std::endl;
+    }
+private:
+    int goal_;
+    int cnt_ = 0;
+};
+
+bool DictionaryGenerator::generate() {
+    // コーパスのパスを読み込む
+    std::cout << "Reading corpus paths..." << std::endl;
+    std::vector<std::string> corpus_paths;
+    if (! TextFileUtility::readLineByLine(corpus_paths_filename_, &corpus_paths)) {
+        std::cerr << "[ERROR] Corpus paths file (=\"" << corpus_paths_filename_ << "\") is NULL." << std::endl;    
+        return false;
+    }
+    
+    // コーパスを読み込む
+    std::cout << "Reading corpus..." << std::endl;
+    std::vector<std::string> corpus_texts;
+    ProgressCounter reading_pc(corpus_paths.size());
+    for (std::string corpus_path : corpus_paths) {
+        std::string corpus_text = TextFileUtility::read(corpus_path);
+        if (corpus_text.empty()) {
+            std::cerr << "[WARNING] Corpus file (=\"" << corpus_path << "\") is NULL." << std::endl;    
+        } else {
+            corpus_texts.push_back(corpus_text);
+        }
+        reading_pc.count();
+    }
+    reading_pc.end();
+
     // コーパスを辞書に変換
+    std::cout << "Converting corpus to dictionary..." << std::endl;
     std::map<std::string, int> dict;
     int corpus_num = corpus_texts.size();
     int sum_dl = 0;
-    int progress = 0;
+    ProgressCounter converting_pc(corpus_num);
     for (auto corpus_text : corpus_texts) { 
         NounExtractor ne;
         std::vector<std::string> corpus_nouns;
@@ -43,14 +70,14 @@ void DictionaryEditor::createDictionary(const std::string& find_file_path) {
         for (auto corpus_noun : corpus_nouns) {
             dict[corpus_noun]++;
         }
-        std::cout << progress << "/" << corpus_num << " Loaded\r";
-        progress++;
+        converting_pc.count();
     }
-    std::cout << std::endl;
+    converting_pc.end();
     dict["$corpus_num"] = corpus_num;
     dict["$sum_dl"]     = sum_dl;
 
-    // コーパス書き出し
+    // 辞書書き出し
+    std::cout << "Write dictionary..." << std::endl;
     std::vector<std::vector<std::string>> dict_values_list;
     for (auto item : dict) {
         std::vector<std::string> dict_values;
@@ -58,19 +85,19 @@ void DictionaryEditor::createDictionary(const std::string& find_file_path) {
         dict_values.push_back(std::to_string(item.second));
         dict_values_list.push_back(dict_values);
     }
-    TextFileWriter tfw;
-    tfw.writeCsv(dict_values_list);
+    TextFileUtility::writeCsv(dict_name_, dict_values_list);
+
+    return true;
 }
 
-bool DictionaryEditor::readDictionary(std::map<std::string, int>* dict) {
+bool DictionaryGenerator::read(const std::string& dict_path, std::map<std::string, int>* dict) {
     if (dict == nullptr) {
         std::cerr << "[ERROR] Dictionary map is NULL." << std::endl;    
         return false;
     }
 
-    TextFileReader tfr;
     std::vector<std::vector<std::string>> dict_values_list;
-    if (! tfr.readCsv("../../res/dict", &dict_values_list)) {
+    if (! TextFileUtility::readCsv(dict_path, &dict_values_list)) {
         std::cerr << "[ERROR] Dictionary file not found." << std::endl;    
         return false;
     }

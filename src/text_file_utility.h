@@ -30,13 +30,13 @@ public:
      * @param [in] file_path ファイルのパス
      * @param [out] ファイルの値一覧
      */
-    static bool readCsv(const std::string& file_pats, std::vector<std::vector<std::string>>* values_list);
+    static bool readCsv(const std::string& file_path, std::vector<std::vector<std::string>>* values_list);
 
     /**
      * 文字列リストをCSVファイルに書き込む
      * @param [in] 書き込む文字列リスト 
      */
-    static void writeCsv(const std::vector<std::vector<std::string>>& values_list);
+    static void writeCsv(const std::string& file_path, const std::vector<std::vector<std::string>>& values_list);
 
     /**
      * 文字列を任意の文字で分割する

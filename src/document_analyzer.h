@@ -20,7 +20,7 @@ enum VectorizationMethod {
  */
 class DocumentAnalyzer {
 public:
-    DocumentAnalyzer() : DocumentAnalyzer(BM25) {};
+    DocumentAnalyzer() : DocumentAnalyzer(BOW) {};
 
     /**
      * @param [in] vectorizer   ベクトライザ 

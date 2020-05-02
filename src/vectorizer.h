@@ -25,7 +25,7 @@ public:
     void vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec);
 protected:
     Vectorizer();
-    std::map<std::string, int> dictionary_;
+    std::map<std::string, int> dict_;
     virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
 };
 
