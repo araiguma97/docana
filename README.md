@@ -1,18 +1,20 @@
 # docana
 
-## 特徴
+## Features
 
-* 文書のベクトル化 (Bug of Words, tf-idf, Okapi BM25)
-* 文書の特徴語抽出
+* Documents vectorization (Bug of Words, tf-idf, Okapi BM25)
+* Term Extraction from documents
+* Document similarity calculation (Cosine similarity)
+* Finding similar documents
 
-## インストール
+## Requirement
 
-### 必要なもの
-* C++ コンパイラ (g++ 7.4.0で動作を確認)
-* [CMake](https://cmake.org/)
+* g++
+* CMake
 * [MeCab](https://taku910.github.io/mecab/)
 
-### 手順
+## Installation
+
 ```sh
 git clone https://github.com/araiguma97/docana.git
 cd docana/docana
@@ -23,71 +25,69 @@ make
 make install
 ```
 
-## 使い方
+## Usage
 
-### 特徴語を抽出する
+### Term Extraction from documents
 
-#### サンプルコード
-```C++
-// sample.cc
-#include <iostream>
-#include <docana/term_extractor.h>
+1. Compile the following code.
 
-int main() {
-    std::vector<std::string> terms;
+    ```C++
+    // sample.cc
+    #include <iostream>
+    #include <docana/term_extractor.h>
 
-    // "hashire_merosu.txt"から特徴語を10個抽出
-    TermExtractor te; 
-    te.extract("hashire_merosu.txt", 10, &terms);
+    int main() {
+        std::vector<std::string> terms;
 
-    // 特徴語を表示
-    for (auto term : terms) {
-        std::cout << term << " ";
+        // "hashire_merosu.txt"から特徴語を10個抽出
+        TermExtractor te;
+        te.extract("hashire_merosu.txt", 10, &terms);
+
+        // 特徴語を表示
+        for (auto term : terms) {
+            std::cout << term << " ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-}
-```
+    ```
 
-#### 手順
-1. 作成したプログラムをコンパイルする。
     ```sh
     g++ sample.cc -I/usr/local/include -L/usr/local/lib -ldocana -lmecab
     ```
-1. docanaリポジトリ直下にあるdict.csv (辞書ファイル) を実行ファイルがあるディレクトリにコピーする。
-1. 実行
 
-#### 実行例
-```
-王 濁流 信実 暴君 友 王城 身代り 結婚式 磔 群衆
-```
+1. Copy the dictionary file (docana/dict.csv) to the directory containing an executable file.
+1. Run.
 
-### 辞書を生成する
-
-#### サンプルコード
-
-```C++
-// dict_gen.cc
-#include <docana/dictionary_generator.h>
-
-int main() {
-    DictionaryGenerator dg;
-    dg.generate();
-}
-```
-
-#### 手順
-
-1. コーパスとして用いるテキストファイルを入れたディレクトリ (以下、コーパスディレクトリと呼びます) を用意する。
-1. `find`コマンドを用いて、「コーパスディレクトリ」から「コーパスパス一覧ファイル」を作成する。
     ```sh
-    find <corpus_dir_name> -name "*.txt" > corpus_pathes.txt
+    ./a.out
+    王 濁流 信実 暴君 友 王城 身代り 結婚式 磔 群衆
     ```
-1. 作成したプログラムをコンパイルする。
-    ```sh
-    g++ dict_gen.cc -I/usr/local/include -L/usr/local/lib -ldocana -lmecab
-    ```
-1. 「コーパスディレクトリ」と「コーパスパス一覧ファイル」を実行ファイルがあるディレクトリにコピーする。
-1. 実行
 
-#### 実行例
-実行ファイルがあるディレクトリに辞書ファイル (dict.csv) が生成されます。
+### Dictionary generation
+
+1. Prepare text files to be used as corpus, and put them in a directory.
+1. Make a corpus list file.
+
+    ```sh
+    find <corpus_dir_name> -name "*.txt" > corpus_list.txt
+    ```
+
+1. Compile the following code.
+
+    ```cpp
+    // dict_generationcc
+    #include <docana/dictionary_generator.h>
+
+    int main() {
+        DictionaryGenerator dg;
+        dg.generate();
+    }
+    ```
+
+    ```sh
+    g++ dict_generation.cc -I/usr/local/include -L/usr/local/lib -ldocana -lmecab
+    ```
+
+1. Copy the corpus directory and the corpus list file to the directory containing an executable file.
+
+1. Run, and then a dictionary file (dict.csv) is generated in the directory containing an executable file.
