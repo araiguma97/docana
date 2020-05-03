@@ -39,11 +39,11 @@ make install
     int main() {
         std::vector<std::string> terms;
 
-        // "hashire_merosu.txt"から特徴語を10個抽出
+        // Extraction 10 terms from "hashire_merosu.txt"
         TermExtractor te;
         te.extract("hashire_merosu.txt", 10, &terms);
 
-        // 特徴語を表示
+        // Show terms
         for (auto term : terms) {
             std::cout << term << " ";
         }
