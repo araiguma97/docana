@@ -14,7 +14,7 @@ public:
 void DocanaSample::printTerm(enum VectorizationMethod method) {
     TermExtractor te(method);
     std::vector<std::string> terms;
-    te.extract("../../sample/res/4.txt", 10, &terms);
+    te.extract("./ningen_shikkaku.txt", 10, &terms);
     for (auto term : terms) {
         std::cout << term << " "; 
     }
