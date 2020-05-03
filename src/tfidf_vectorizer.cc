@@ -1,9 +1,9 @@
-#include "tfidf_vectorizer.h"
+#include "docana/tfidf_vectorizer.h"
 
 #include <cmath>
 #include <string>
 
-#include "noun_extractor.h"
+#include "docana/noun_extractor.h"
 
 double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
     int noun_cnt = 0;

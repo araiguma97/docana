@@ -1,4 +1,4 @@
-#include "bow_vectorizer.h"
+#include "docana/bow_vectorizer.h"
 
 #include <string>
 #include <vector>

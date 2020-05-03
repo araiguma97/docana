@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-include_directories(/usr/local/include ${PROJECT_SOURCE_DIR}/include/docana)
+include_directories(/usr/local/include ${PROJECT_SOURCE_DIR}/include)
 link_directories(/usr/local/lib)
 add_library(docana STATIC
     noun_extractor.cc

@@ -4,5 +4,5 @@ add_definitions("-O2 -g -Wall")
 enable_testing()
 add_subdirectory(src)
 add_subdirectory(test)
-add_subdirectory(sample)
+add_subdirectory(samples)
 

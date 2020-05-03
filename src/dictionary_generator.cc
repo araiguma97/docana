@@ -1,4 +1,4 @@
-#include "dictionary_generator.h"
+#include "docana/dictionary_generator.h"
 
 #include <dirent.h>
 
@@ -7,10 +7,10 @@
 #include <vector>
 #include <map>
 
-#include "document_element.h"
-#include "text_file_utility.h"
-#include "noun_extractor.h"
-#include "vector_utility.h"
+#include "docana/document_element.h"
+#include "docana/text_file_utility.h"
+#include "docana/noun_extractor.h"
+#include "docana/vector_utility.h"
 
 class ProgressCounter {
 public:

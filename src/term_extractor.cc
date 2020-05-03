@@ -1,17 +1,17 @@
-#include "term_extractor.h"
+#include "docana/term_extractor.h"
 
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
-#include "document_element.h"
-#include "vectorizer.h"
-#include "bm25_vectorizer.h"
-#include "tfidf_vectorizer.h"
-#include "bow_vectorizer.h"
-#include "text_file_utility.h"
-#include "vector_utility.h"
+#include "docana/document_element.h"
+#include "docana/vectorizer.h"
+#include "docana/bm25_vectorizer.h"
+#include "docana/tfidf_vectorizer.h"
+#include "docana/bow_vectorizer.h"
+#include "docana/text_file_utility.h"
+#include "docana/vector_utility.h"
 
 TermExtractor::TermExtractor(enum VectorizationMethod method) {
     switch (method) {

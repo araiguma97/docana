@@ -1,10 +1,10 @@
-#include "vector_utility.h"
+#include "docana/vector_utility.h"
 
 #include <string>
 #include <vector>
 #include <algorithm>
 
-#include "document_element.h"
+#include "docana/document_element.h"
 
 void VectorizerUtility::unique(std::vector<std::string>* vec) {
     std::sort(vec->begin(), vec->end());

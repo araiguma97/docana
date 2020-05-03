@@ -1,13 +1,13 @@
-#include "vectorizer.h"
+#include "docana/vectorizer.h"
 
 #include <string>
 #include <vector>
 #include <iostream>
 
-#include "document_element.h"
-#include "noun_extractor.h"
-#include "dictionary_generator.h"
-#include "vector_utility.h"
+#include "docana/document_element.h"
+#include "docana/noun_extractor.h"
+#include "docana/dictionary_generator.h"
+#include "docana/vector_utility.h"
 
 Vectorizer::Vectorizer() {
     DictionaryGenerator dg;

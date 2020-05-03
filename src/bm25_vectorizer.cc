@@ -1,9 +1,9 @@
-#include "bm25_vectorizer.h"
+#include "docana/bm25_vectorizer.h"
 
 #include <cmath>
 #include <string>
 
-#include "noun_extractor.h"
+#include "docana/noun_extractor.h"
 
 double Bm25Vectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
     /* (1) tfの計算 */
