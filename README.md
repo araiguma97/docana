@@ -10,7 +10,7 @@
 ### 必要なもの
 * C++ コンパイラ (g++ 7.4.0で動作を確認)
 * [CMake](https://cmake.org/)
-* [MeCab](https://taku910.github.io/mecab/#install)
+* [MeCab](https://taku910.github.io/mecab/)
 
 ### 手順
 ```sh
