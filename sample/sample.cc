@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 
-#include <term_extractor.h>
-#include <dictionary_generator.h>
+#include "term_extractor.h"
+#include "dictionary_generator.h"
 
 class DocanaSample {
 public:

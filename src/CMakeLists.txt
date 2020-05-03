@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-include_directories(/usr/local/include)
+include_directories(/usr/local/include ${PROJECT_SOURCE_DIR}/docana)
 link_directories(/usr/local/lib)
 add_library(docana STATIC
     noun_extractor.cc
@@ -15,4 +15,15 @@ add_library(docana STATIC
     vector_utility.cc
 )
 target_link_libraries(docana mecab)
+
+INSTALL(
+    TARGETS docana
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
+
+INSTALL(
+    DIRECTORY ${PROJECT_SOURCE_DIR}/docana
+    DESTINATION include
+)
 
