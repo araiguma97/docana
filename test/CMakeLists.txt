@@ -5,7 +5,7 @@ include(GoogleTest)
 
 add_executable(unit_test test.cc)
 target_link_libraries(unit_test docana GTest::GTest GTest::Main)
-include_directories(${PROJECT_SOURCE_DIR}/src ${GTEST_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
 
 gtest_add_tests(TARGET unit_test)
 

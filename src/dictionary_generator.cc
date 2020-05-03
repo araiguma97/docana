@@ -65,7 +65,7 @@ bool DictionaryGenerator::generate() {
         NounExtractor ne;
         std::vector<std::string> corpus_nouns;
         ne.extractNoun(corpus_text, &corpus_nouns);
-        VectorizerUtility::unique(&corpus_nouns);
+        VectorUtility::unique(&corpus_nouns);
         sum_dl += corpus_nouns.size();
         for (auto corpus_noun : corpus_nouns) {
             dict[corpus_noun]++;
