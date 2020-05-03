@@ -15,7 +15,7 @@
 ### 手順
 ```sh
 git clone https://github.com/araiguma97/docana.git
-cd docana
+cd docana/docana
 mkdir build
 cd build
 cmake ..
