@@ -4,7 +4,7 @@
 
 * Documents vectorization (Bug of Words, tf-idf, Okapi BM25)
 * Term Extraction from documents
-* Document similarity calculation (Cosine similarity)
+* Calculation document similarity (Cosine similarity)
 * Finding similar documents
 
 ## Requirement
@@ -56,10 +56,9 @@ make install
     ```
 
 1. Copy the dictionary file (docana/dict.csv) to the directory containing an executable file.
-1. Run.
+1. Run, and terms are extracted.
 
     ```sh
-    ./a.out
     王 濁流 信実 暴君 友 王城 身代り 結婚式 磔 群衆
     ```
 
@@ -90,4 +89,4 @@ make install
 
 1. Copy the corpus directory and the corpus list file to the directory containing an executable file.
 
-1. Run, and then a dictionary file (dict.csv) is generated in the directory containing an executable file.
+1. Run, and then a dictionary file (dict.csv) is generated.
