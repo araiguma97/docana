@@ -6,31 +6,50 @@
 #include "docana/noun_extractor.h"
 
 double Bm25Vectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
-    /* (1) tfの計算 */
-    int noun_cnt = 0;
+    // 入力チェック
+    double doc_nouns_size = (double)doc_nouns.size();
+    if (doc_nouns_size == 0.0) {
+        return 0.0;
+    }
+
+    // 辞書チェック
+    auto corpus_item = dict_.find("$corpus_num");
+    auto sum_dl_item = dict_.find("$sum_dl");
+    if (corpus_item == dict_.end() || sum_dl_item == dict_.end()) {
+        return 0.0;
+    }
+    double corpus_num = (double)corpus_item->second;
+    double sum_dl     = (double)sum_dl_item->second;
+    double avgdl = sum_dl / corpus_num;
+    if (corpus_num <= 0) {
+        return 0.0;
+    }
+
+    // tfの計算
+    double tf = 0.0;
     for (std::string doc_noun : doc_nouns) {
         if (noun == doc_noun) {
-            noun_cnt++;
+            tf++;
         }
     }
-    double tf = (double)noun_cnt / (double)doc_nouns.size();
 
-    /* (2) idfの計算 */
-    int corpus_num = dict_["$corpus_num"];
-    int doc_num = dict_[noun];
-    double idf_numerator   = (double)corpus_num - (double)doc_num + 0.5;
-    double idf_denominator = (double)doc_num + 0.5;
+    // idfの計算
+    double df = 0.0;
+    auto noun_item = dict_.find(noun);
+    if (noun_item != dict_.end()) {
+        df = (double)noun_item->second;
+    }
+    double idf_numerator   = corpus_num - df + 0.5;
+    double idf_denominator = df + 0.5;
     double idf = std::log(idf_numerator / idf_denominator);
+    if (idf < 0.0) {
+        idf = 0.0;
+    }
 
-    /* (3) NDL (Normalized Document Length) の計算 */
-    double avgdl  = (double)dict_["$sum_dl"] / (double)corpus_num;
-    double ndl = (double)noun_cnt / avgdl;
+    // BM25の計算
+    double bm25_numerator   = tf * (k1_ + 1.0);
+    double bm25_denominator = tf + k1_ * (1.0 - b_ + b_ * (doc_nouns_size / avgdl));
+    double bm25 = idf * (bm25_numerator / bm25_denominator);
 
-    /* (4) BM25スコアの計算 */
-    double numerator   = tf * idf * (k1_ + 1.0);
-    double denominator = tf + k1_ * (1.0 - b_ + b_ * ndl);
-    double bm25_score = numerator / denominator;
-
-    return bm25_score;
+    return bm25;
 }
-
