@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,18 +8,34 @@
 
 class DocanaSample {
 public:
-    void printTerm(enum VectorizationMethod method);
+    void printTerm(const std::string doc_path);
+    void printSimilarDocuments(const std::string doc_path);
     void generateDict();
 };
 
-void DocanaSample::printTerm(enum VectorizationMethod method) {
-    DocumentAnalyzer da(method);
+void DocanaSample::printTerm(const std::string doc_path) {
+    DocumentAnalyzer da(TFIDF);
     std::vector<std::string> terms;
-    da.extractTerm("ningen_shikkaku.txt", 10, &terms);
+    da.extractTerm(doc_path, 10, &terms);
+
     for (auto term : terms) {
         std::cout << term << " "; 
     }
     std::cout << std::endl;
+}
+
+void DocanaSample::printSimilarDocuments(const std::string doc_path) {
+    DocumentAnalyzer da(BOW);
+    std::vector<std::string> target_paths;
+    for (const auto& entry : std::filesystem::directory_iterator("doc")) {
+        target_paths.push_back(entry.path().string());
+    }
+    std::vector<std::string> similar_paths;
+    da.findSimilarDocuments(doc_path, target_paths, &similar_paths);
+
+    for (auto similar_path : similar_paths) {
+        std::cout << similar_path << std::endl; 
+    }
 }
 
 void DocanaSample::generateDict() {
@@ -29,10 +46,8 @@ void DocanaSample::generateDict() {
 int main() {
     DocanaSample da_sample;
     // da_sample.generateDict(); 
-    std::cout << "Bag of Words: "; 
-    da_sample.printTerm(BOW);
-    std::cout << "tf-idf: "; 
-    da_sample.printTerm(TFIDF);
-    std::cout << "BM25: "; 
-    da_sample.printTerm(BM25);
+    std::cout << "銀河鉄道の夜: "; 
+    da_sample.printTerm("doc/gingatetsudono_yoru.txt");
+    std::cout << "銀河鉄道の夜の類似文書: " << std::endl; 
+    da_sample.printSimilarDocuments("doc/gingatetsudono_yoru.txt");
 }
