@@ -1,26 +1,27 @@
 cmake_minimum_required(VERSION 3.10)
 
-include_directories(/usr/local/include ${PROJECT_SOURCE_DIR}/include)
-link_directories(/usr/local/lib)
 add_library(docana STATIC
-    document_analyzer.cc
-
-    vectorizer.cc
-    bow_vectorizer.cc
-    tfidf_vectorizer.cc
     bm25_vectorizer.cc
-    document_element.cc
-
+    bow_vectorizer.cc
     cosine_similarity_calculator.cc
-    documents_pair.cc
-
-    noun_extractor.cc
     dictionary_generator.cc
-
+    document_analyzer.cc
+    document_element.cc
+    documents_pair.cc
+    noun_extractor.cc
     text_file_utility.cc
+    tfidf_vectorizer.cc
     vector_utility.cc
+    vectorizer.cc
 )
-target_link_libraries(docana mecab)
+
+target_include_directories(docana PUBLIC
+    ${PROJECT_SOURCE_DIR}/include
+)
+target_include_directories(docana PRIVATE
+    ${MECAB_INCLUDE_DIR}
+)
+target_link_libraries(docana PRIVATE ${MECAB_LIBRARY})
 
 INSTALL(
     TARGETS docana
