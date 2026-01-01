@@ -6,15 +6,35 @@
 #include "docana/noun_extractor.h"
 
 double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
-    int noun_cnt = 0;
+    // 入力チェック
+    double doc_nouns_size = (double)doc_nouns.size();
+    if (doc_nouns_size == 0.0) {
+        return 0.0;
+    }
+
+    // 辞書チェック 
+    auto corpus_item = dict_.find("$corpus_num");
+    if (corpus_item == dict_.end()) {
+        return 0.0;
+    }
+    double corpus_num = (double)corpus_item->second;
+
+    // tfの計算
+    double noun_cnt = 0.0;
     for (std::string doc_noun : doc_nouns) {
         if (noun == doc_noun) {
             noun_cnt++;
         }
     }
-    double tf = (double)noun_cnt / (double)doc_nouns.size();
+    double tf = noun_cnt / doc_nouns_size;
 
-    double idf = std::log((double)dict_["$corpus_num"] / ((double)dict_[noun] + 1));
+    // idfの計算
+    double df = 0.0;
+    auto noun_item = dict_.find(noun);
+    if (noun_item != dict_.end()) {
+        df = (double)noun_item->second;
+    }
+    double idf = std::log((corpus_num + 1.0) / (df + 1.0)) + 1.0;
 
     return tf * idf;
 }

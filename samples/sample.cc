@@ -14,7 +14,7 @@ public:
 };
 
 void DocanaSample::printTerm(const std::string doc_path) {
-    DocumentAnalyzer da(TFIDF);
+    DocumentAnalyzer da(BM25);
     std::vector<std::string> terms;
     da.extractTerm(doc_path, 10, &terms);
 
@@ -25,7 +25,7 @@ void DocanaSample::printTerm(const std::string doc_path) {
 }
 
 void DocanaSample::printSimilarDocuments(const std::string doc_path) {
-    DocumentAnalyzer da(BOW);
+    DocumentAnalyzer da(BM25);
     std::vector<std::string> target_paths;
     for (const auto& entry : std::filesystem::directory_iterator("doc")) {
         target_paths.push_back(entry.path().string());
