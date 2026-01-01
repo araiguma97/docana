@@ -56,17 +56,18 @@ bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, 
 
 void DocumentAnalyzer::findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths) {
     std::string doc_text = TextFileUtility::read(doc_path);
-    std::vector<DocumentElement> vec1;
-    vectorizer_->vectorize(doc_text, &vec1);
+    std::vector<DocumentElement> base_doc_vec;
+    vectorizer_->vectorize(doc_text, &base_doc_vec);
 
     std::vector<DocumentsPair> doc_pairs;
     for (auto target_path : target_paths) {
         std::string target_text = TextFileUtility::read(target_path);
-        std::vector<DocumentElement> vec2;
-        vectorizer_->vectorize(target_text, &vec2);
+        std::vector<DocumentElement> target_vec;
+        vectorizer_->vectorize(target_text, &target_vec);
 
-        VectorUtility::commonalize(&vec1, &vec2);
-        DocumentsPair docs_pair(doc_path, target_path, calculateSimirality(vec1, vec2));
+        std::vector<DocumentElement> doc_vec = base_doc_vec;
+        VectorUtility::commonalize(&doc_vec, &target_vec);
+        DocumentsPair docs_pair(doc_path, target_path, calculateSimirality(doc_vec, target_vec));
         doc_pairs.push_back(docs_pair);
     }
     
