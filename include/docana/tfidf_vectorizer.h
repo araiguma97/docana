@@ -4,7 +4,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 #include "vectorizer.h"
 
@@ -13,5 +12,5 @@
  */
 class TfidfVectorizer : public Vectorizer {
 private:
-    double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) override;
+    double calculate(const std::string& term, const size_t term_cnt, const size_t total_term_num) override;
 };

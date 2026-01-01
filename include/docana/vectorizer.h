@@ -26,6 +26,6 @@ public:
 protected:
     Vectorizer();
     std::map<std::string, int> dict_;
-    virtual double calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) = 0;
+    virtual double calculate(const std::string& term, const size_t term_cnt, const size_t total_term_num) = 0;
 };
 

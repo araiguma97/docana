@@ -3,12 +3,9 @@
 #include <cmath>
 #include <string>
 
-#include "docana/noun_extractor.h"
-
-double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std::string>& doc_nouns) {
+double TfidfVectorizer::calculate(const std::string& term, const size_t term_cnt, const size_t total_term_num) {
     // 入力チェック
-    double doc_nouns_size = (double)doc_nouns.size();
-    if (doc_nouns_size == 0.0) {
+    if (total_term_num == 0) {
         return 0.0;
     }
 
@@ -20,19 +17,13 @@ double TfidfVectorizer::calculate(const std::string& noun, const std::vector<std
     double corpus_num = (double)corpus_item->second;
 
     // tfの計算
-    double noun_cnt = 0.0;
-    for (std::string doc_noun : doc_nouns) {
-        if (noun == doc_noun) {
-            noun_cnt++;
-        }
-    }
-    double tf = noun_cnt / doc_nouns_size;
+    double tf = (double)term_cnt / (double)total_term_num;
 
     // idfの計算
     double df = 0.0;
-    auto noun_item = dict_.find(noun);
-    if (noun_item != dict_.end()) {
-        df = (double)noun_item->second;
+    auto dict_term_item = dict_.find(term);
+    if (dict_term_item != dict_.end()) {
+        df = (double)dict_term_item->second;
     }
     double idf = std::log((corpus_num + 1.0) / (df + 1.0)) + 1.0;
 
