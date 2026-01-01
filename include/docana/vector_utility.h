@@ -1,5 +1,5 @@
 /**
- * @file vector_utiliry.h
+ * @file vector_utility.h
  */
 #pragma once
 
