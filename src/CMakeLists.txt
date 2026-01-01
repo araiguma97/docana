@@ -6,8 +6,6 @@ add_library(docana STATIC
     cosine_similarity_calculator.cc
     dictionary_generator.cc
     document_analyzer.cc
-    document_element.cc
-    documents_pair.cc
     noun_extractor.cc
     text_file_utility.cc
     tfidf_vectorizer.cc
