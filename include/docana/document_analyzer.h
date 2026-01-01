@@ -3,47 +3,28 @@
  */
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "document_element.h"
 #include "vectorizer.h"
 
-enum VectorizationMethod {
-    BOW = 0, 
-    TFIDF,
-    BM25
-};
-
 /**
  * 文書を解析する処理についてのFacadeクラス。
  */
 class DocumentAnalyzer {
 public:
-    DocumentAnalyzer() : DocumentAnalyzer(BOW) {};
-
-    /**
-     * @param [in] vectorizer   ベクトライザ 
-     */
-    DocumentAnalyzer(enum VectorizationMethod method);
-
-    ~DocumentAnalyzer();
+    explicit DocumentAnalyzer(std::unique_ptr<Vectorizer> vectorizer): vectorizer_(std::move(vectorizer)) {};
 
     /**
      * 文書の特徴語を抽出する
      * @param [in] doc_path 文書のパス 
      * @param [in] size     抽出する特徴語の数
-     * @param [out] terms    特徴語一覧
+     * @param [out] terms   特徴語一覧
      * @return true(成功)/false(失敗)
      */
     bool extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms);
-
-    /**
-     * tf-idfで文書をベクトル化する
-     * @param [in] doc_path 文書のパス
-     * @param [out] scores   文書ベクトル
-     */
-    void vectorize(const std::string& doc_path, std::vector<double>* scores);
 
     /**
      * 似ている文書を探す
@@ -52,8 +33,9 @@ public:
      * @param [out] similar_paths 似ている順にソートされたパス群
      */
     void findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths);
+
 private:
-    Vectorizer* vectorizer_;
+    std::unique_ptr<Vectorizer> vectorizer_;
+
     double calculateSimirality(const std::vector<DocumentElement>& vec1, const std::vector<DocumentElement>& vec2);
 };
-

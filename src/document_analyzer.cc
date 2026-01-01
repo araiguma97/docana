@@ -17,24 +17,6 @@
 #include "docana/text_file_utility.h"
 #include "docana/vector_utility.h"
 
-DocumentAnalyzer::DocumentAnalyzer(enum VectorizationMethod method) {
-    switch (method) {
-    case BOW: 
-        vectorizer_ = new BowVectorizer;
-        break;
-    case TFIDF:
-        vectorizer_ = new TfidfVectorizer;
-        break;
-    case BM25:
-        vectorizer_ = new Bm25Vectorizer;
-        break;
-    }
-}
-
-DocumentAnalyzer::~DocumentAnalyzer() {
-    delete vectorizer_;
-}
-
 bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
     std::string doc_text = TextFileUtility::read(doc_path);
 
@@ -89,4 +71,3 @@ double DocumentAnalyzer::calculateSimirality(const std::vector<DocumentElement>&
     CosineSimilarityCalculator csc;
     return csc.calculate(scores1, scores2);
 }
-
