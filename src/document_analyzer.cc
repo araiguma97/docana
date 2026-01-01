@@ -45,7 +45,6 @@ bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, 
 
     std::vector<DocumentElement> vec;
     vectorizer_->vectorize(doc_text, &vec);
-    VectorUtility::unique(&vec);
     std::sort(vec.begin(), vec.end(), [](const DocumentElement &lhs, const DocumentElement &rhs) {
         return lhs.score > rhs.score;
     });

@@ -1,8 +1,9 @@
 #include "docana/vector_utility.h"
 
+#include <map>
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <utility>
 
 #include "docana/document_element.h"
 #include "docana/documents_pair.h"
@@ -31,25 +32,27 @@ bool VectorUtility::commonalize(std::vector<DocumentElement>* vec1, std::vector<
         return false;
     }
 
-    std::vector<std::string> nouns;
-    std::vector<std::string> another_nouns;
-    toNouns(*vec1, vec1->size(), &nouns);
-    toNouns(*vec2, vec2->size(), &another_nouns);
-    nouns.insert(nouns.end(), another_nouns.begin(), another_nouns.end());
-
-    for (std::string noun : nouns) {
-        if (! contains(noun, *vec1)) {
-            DocumentElement doc_ele(noun, 0);
-            vec1->push_back(doc_ele);
-        }
-        if (! contains(noun, *vec2)) {
-            DocumentElement doc_ele(noun, 0);
-            vec2->push_back(doc_ele);
-        }
+    // 共通マップを生成
+    std::map<std::string, std::pair<double, double>> common_map;
+    for (const auto& ele : *vec1) {
+        common_map[ele.noun].first = ele.score;
     }
+    for (const auto& ele : *vec2) {
+        common_map[ele.noun].second = ele.score;
+    }
+    vec1->clear();
+    vec2->clear();
+    vec1->reserve(common_map.size());
+    vec2->reserve(common_map.size());
 
-    unique(vec1);
-    unique(vec2);
+    // ベクトルに再変換
+    for (const auto& pair : common_map) {
+        const std::string& noun = pair.first;
+        double score1 = pair.second.first;
+        double score2 = pair.second.second;
+        vec1->emplace_back(noun, score1);
+        vec2->emplace_back(noun, score2);
+    }
 
     return true;
 }
