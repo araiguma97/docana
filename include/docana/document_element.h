@@ -12,12 +12,8 @@ struct DocumentElement {
     std::string noun;
     double score;
 
-    DocumentElement() {};
-
-    DocumentElement(std::string noun, double score) {
-        this->noun = noun;
-        this->score = score;
-    }
+    DocumentElement() : score(0.0) {};
+    DocumentElement(std::string noun, double score) : noun(std::move(noun)), score(score) {}
 
     bool operator==(const DocumentElement& another) const {
         return noun == another.noun;

@@ -46,8 +46,8 @@ void DocanaSample::generateDict() {
 int main() {
     DocanaSample da_sample;
     // da_sample.generateDict(); 
-    std::cout << "銀河鉄道の夜: "; 
+    std::cout << "特徴語: ";
     da_sample.printTerm("doc/gingatetsudono_yoru.txt");
-    std::cout << "銀河鉄道の夜の類似文書: " << std::endl; 
+    std::cout << "類似文書: " << std::endl;
     da_sample.printSimilarDocuments("doc/gingatetsudono_yoru.txt");
 }
