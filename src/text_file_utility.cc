@@ -20,39 +20,37 @@ std::string TextFileUtility::read(const std::string& file_path) {
     return text;
 }
 
-bool TextFileUtility::readLineByLine(const std::string& file_path, std::vector<std::string>* lines) {
+std::vector<std::string> TextFileUtility::readLineByLine(const std::string& file_path) {
     std::string text;
 
     std::ifstream file(file_path, std::ios::in);
     if (! file) {
-        return false;
+        return std::vector<std::string>();
     }
 
+    std::vector<std::string> lines;
     std::string line;
     while (std::getline(file, line)) {
-        lines->push_back(line);
+        lines.push_back(line);
     }
-
-    return true;
+    return lines;
 }
 
-bool TextFileUtility::readCsv(const std::string& file_path,
-                              std::vector<std::vector<std::string>>* values_list) {
+std::vector<std::vector<std::string>> TextFileUtility::readCsv(const std::string& file_path) {
     std::string text;
 
     std::ifstream file(file_path, std::ios::in);
     if (! file) {
-        return false;
+        return std::vector<std::vector<std::string>>();
     }
 
+    std::vector<std::vector<std::string>> values_list;
     std::string line;
     while (std::getline(file, line)) {
-        std::vector<std::string> values;
-        split(line, ',', &values);
-        values_list->push_back(values);
+        std::vector<std::string> values = split(line, ',');
+        values_list.push_back(values);
     }
-
-    return true;
+    return values_list;
 }
 
 void TextFileUtility::writeCsv(const std::string& file_path,
@@ -71,16 +69,17 @@ void TextFileUtility::writeCsv(const std::string& file_path,
     file.close();
 }
 
-void TextFileUtility::split(const std::string& str, const char delim, std::vector<std::string>* values) {
+std::vector<std::string> TextFileUtility::split(const std::string& str, const char delim) {
+    std::vector<std::string> values;
     std::string::size_type offset = 0;
     while (1) {
         std::string::size_type pos = str.find(delim, offset);
         if (pos == std::string::npos) {
-           values->push_back(str.substr(offset)); 
+           values.push_back(str.substr(offset));
            break;
         }
-        values->push_back(str.substr(offset, pos - offset));
+        values.push_back(str.substr(offset, pos - offset));
         offset = pos + 1;
     }
+    return values;
 }
-

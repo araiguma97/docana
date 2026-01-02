@@ -14,13 +14,14 @@ Vectorizer::Vectorizer() {
     dg.read(&dict_);
 }
 
-void Vectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElement>* doc_vec) {
+std::vector<DocumentElement> Vectorizer::vectorize(const std::string& doc_text) {
+    std::vector<DocumentElement> doc_vec;
+
     // 文書から単語を取得
     NounExtractor ne;
-    std::vector<std::string> doc_terms;
-    ne.extractNoun(doc_text, &doc_terms);
+    std::vector<std::string> doc_terms = ne.extractNoun(doc_text);
     if (doc_terms.empty()) {
-        return;
+        return doc_vec;
     }
     const size_t total_term_num = doc_terms.size();
 
@@ -31,11 +32,13 @@ void Vectorizer::vectorize(const std::string& doc_text, std::vector<DocumentElem
     }
 
     // ベクトル化
-    doc_vec->reserve(term_map.size()); // メモリ確保の最適化
+    doc_vec.reserve(term_map.size()); // メモリ確保の最適化
     for (const auto& pair : term_map) {
         const std::string& term = pair.first;
         const size_t term_cnt = pair.second;
         double score = calculate(term, term_cnt, total_term_num);
-        doc_vec->emplace_back(term, score);
+        doc_vec.emplace_back(term, score);
     }
+
+    return doc_vec;
 }

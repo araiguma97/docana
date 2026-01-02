@@ -15,17 +15,11 @@ class NounExtractor {
 public:
     /**
      * テキストから名詞を抽出する
-     * @param [in]  str   テキスト
-     * @param [out] nouns 名詞一覧
+     * @param str テキスト
+     * @return 名詞一覧
      */
-    void extractNoun(const std::string& str, std::vector<std::string>* nouns);
+    std::vector<std::string> extractNoun(const std::string& str);
 
-    /**
-     * テキスト群から名詞を抽出する
-     * @param [in]  str   テキスト群
-     * @param [out] nouns 名詞一覧リスト
-     */
-    void extractNoun(const std::vector<std::string>& strs, std::vector<std::vector<std::string>>* nounsList);
 private:
     bool isStopWord(const std::vector<std::string>& feature_values);
 };

@@ -16,39 +16,43 @@ class VectorUtility {
 public:
     /**
      * 文書ベクトルをユニークする。ただし、昇順ソートされる。
-     * @param [in,out] vec 文書ベクトル
+     * @param vec 文書ベクトル
+     * @return ユニークな文書ベクトル
      */
-    static void unique(std::vector<std::string>* vec);
-    static void unique(std::vector<DocumentElement>* vec);
-    static void unique(std::vector<DocumentsPair>* vec);
+    static std::vector<std::string> unique(const std::vector<std::string>& vec);
+    static std::vector<DocumentElement> unique(const std::vector<DocumentElement>& vec);
+    static std::vector<DocumentsPair> unique(const std::vector<DocumentsPair>& vec);
 
     /**
      * 2つの文書ベクトルを共通化する。
-     * @param [in, out] vec1 1つ目の文書ベクトル
-     * @param [in, out] vec2 2つ目の文書ベクトル
+     * @param vec1 1つ目の文書ベクトル
+     * @param vec2 2つ目の文書ベクトル
+     * @return 共通化された文書ベクトルの組
      */
-    static bool commonalize(std::vector<DocumentElement>* vec1, std::vector<DocumentElement>* vec2);
+    static std::pair<std::vector<DocumentElement>, std::vector<DocumentElement>>
+    commonalize(const std::vector<DocumentElement>& vec1, const std::vector<DocumentElement>& vec2);
 
     /**
-     * 文書ベクトルを名詞一覧にする
-     * @param [in] vec 文書ベクトル
-     * @param [in] size 名詞一覧のサイズ
-     * @param [out] nouns 名詞一覧 
+     * 文書ベクトルを単語一覧にする
+     * @param vec 文書ベクトル
+     * @param size 単語一覧のサイズ
+     * @return 単語一覧
      */
-    static void toNouns(const std::vector<DocumentElement>& vec, const int size, std::vector<std::string>* nouns);
+    static std::vector<std::string> toTerms(const std::vector<DocumentElement>& vec, const size_t size);
 
     /**
      * 文書ベクトルを重要度一覧にする
-     * @param [in]  vec    文書ベクトル
-     * @param [out] scores 重要度一覧
+     * @param vec    文書ベクトル
+     * @return 重要度一覧
      */
-    static void toScores(const std::vector<DocumentElement>& vec, std::vector<double>* scores);
+    static std::vector<double> toScores(const std::vector<DocumentElement>& vec);
 
     /**
-     * 文書ベクトルにある名詞が含まれるか
-     * @param [in] noun 名詞
+     * 文書ベクトルにある単語が含まれるか
+     * @param [in] term 単語
      * @param [in] vec 文書ベクトル 
+     * @return true(含まれる)/false(含まれない)
      */
-    static bool contains(const std::string& noun, const std::vector<DocumentElement>& vec);
+    static bool contains(const std::string& term, const std::vector<DocumentElement>& vec);
 };
 
