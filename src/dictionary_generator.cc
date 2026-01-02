@@ -34,8 +34,8 @@ private:
 bool DictionaryGenerator::generate() {
     // コーパスのパスを読み込む
     std::cout << "Reading corpus paths..." << std::endl;
-    std::vector<std::string> corpus_paths;
-    if (! TextFileUtility::readLineByLine(corpus_paths_filename_, &corpus_paths)) {
+    std::vector<std::string> corpus_paths = TextFileUtility::readLineByLine(corpus_paths_filename_);
+    if (corpus_paths.empty()) {
         std::cerr << "[ERROR] Corpus paths file (=\"" << corpus_paths_filename_ << "\") is NULL." << std::endl;    
         return false;
     }
@@ -63,9 +63,8 @@ bool DictionaryGenerator::generate() {
     ProgressCounter converting_pc(corpus_num);
     for (auto corpus_text : corpus_texts) { 
         NounExtractor ne;
-        std::vector<std::string> corpus_nouns;
-        ne.extractNoun(corpus_text, &corpus_nouns);
-        VectorUtility::unique(&corpus_nouns);
+        std::vector<std::string> raw_corpus_nouns = ne.extractNoun(corpus_text);
+        std::vector<std::string> corpus_nouns = VectorUtility::unique(corpus_nouns);
         sum_dl += corpus_nouns.size();
         for (auto corpus_noun : corpus_nouns) {
             dict[corpus_noun]++;
@@ -96,8 +95,8 @@ bool DictionaryGenerator::read(std::map<std::string, int>* dict) {
         return false;
     }
 
-    std::vector<std::vector<std::string>> dict_values_list;
-    if (! TextFileUtility::readCsv(dict_path_, &dict_values_list)) {
+    std::vector<std::vector<std::string>> dict_values_list = TextFileUtility::readCsv(dict_path_);
+    if (dict_values_list.empty()) {
         std::cerr << "[ERROR] Dictionary file not found." << std::endl;    
         return false;
     }

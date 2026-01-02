@@ -9,14 +9,14 @@
  * 文書ベクトルの要素の構造体。
  */
 struct DocumentElement {
-    std::string noun;
+    std::string term;
     double score;
 
     DocumentElement() : score(0.0) {};
-    DocumentElement(std::string noun, double score) : noun(std::move(noun)), score(score) {}
+    DocumentElement(std::string term, double score) : term(std::move(term)), score(score) {}
 
     bool operator==(const DocumentElement& another) const {
-        return noun == another.noun;
+        return term == another.term;
     }
 };
 

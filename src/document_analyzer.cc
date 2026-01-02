@@ -17,38 +17,39 @@
 #include "docana/text_file_utility.h"
 #include "docana/vector_utility.h"
 
-bool DocumentAnalyzer::extractTerm(const std::string& doc_path, const int size, std::vector<std::string>* terms) {
+std::vector<std::string> DocumentAnalyzer::extractTerm(const std::string& doc_path, const size_t size) {
     std::string doc_text = TextFileUtility::read(doc_path);
 
     if (doc_text.empty()) {
         std::cerr << "[ERROR] Document (=\"" << doc_path << "\") not found." << std::endl;    
-        return false;
+        return std::vector<std::string>();
     }
 
-    std::vector<DocumentElement> vec;
-    vectorizer_->vectorize(doc_text, &vec);
+    std::vector<DocumentElement> vec = vectorizer_->vectorize(doc_text);
     std::sort(vec.begin(), vec.end(), [](const DocumentElement &lhs, const DocumentElement &rhs) {
         return lhs.score > rhs.score;
     });
-    VectorUtility::toNouns(vec, size, terms);
     
-    return true;
+    return VectorUtility::toTerms(vec, size);
 }
 
-void DocumentAnalyzer::findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths, std::vector<std::string>* similar_paths) {
+std::vector<std::string> DocumentAnalyzer::findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths) {
     std::string doc_text = TextFileUtility::read(doc_path);
-    std::vector<DocumentElement> base_doc_vec;
-    vectorizer_->vectorize(doc_text, &base_doc_vec);
+    std::vector<DocumentElement> base_doc_vec = vectorizer_->vectorize(doc_text);
 
     std::vector<DocumentsPair> doc_pairs;
     for (auto target_path : target_paths) {
         std::string target_text = TextFileUtility::read(target_path);
-        std::vector<DocumentElement> target_vec;
-        vectorizer_->vectorize(target_text, &target_vec);
+        std::vector<DocumentElement> target_vec = vectorizer_->vectorize(target_text);
 
         std::vector<DocumentElement> doc_vec = base_doc_vec;
-        VectorUtility::commonalize(&doc_vec, &target_vec);
-        DocumentsPair docs_pair(doc_path, target_path, calculateSimirality(doc_vec, target_vec));
+        std::pair<std::vector<DocumentElement>, std::vector<DocumentElement>> doc_vec_pair = VectorUtility::commonalize(doc_vec, target_vec);
+
+        CosineSimilarityCalculator csc;
+        double score = csc.calculate(
+            VectorUtility::toScores(doc_vec_pair.first), VectorUtility::toScores(doc_vec_pair.second));
+
+        DocumentsPair docs_pair(doc_path, target_path, score);
         doc_pairs.push_back(docs_pair);
     }
     
@@ -56,18 +57,9 @@ void DocumentAnalyzer::findSimilarDocuments(const std::string& doc_path, const s
         return lhs.sim > rhs.sim;
     });
 
+    std::vector<std::string> similar_paths;
     for (auto doc_pair : doc_pairs) {
-        similar_paths->push_back(doc_pair.doc_path2);
+        similar_paths.push_back(doc_pair.doc_path2);
     }
-}
-
-double DocumentAnalyzer::calculateSimirality(const std::vector<DocumentElement>& vec1, const std::vector<DocumentElement>& vec2) {
-    std::vector<double> scores1;
-    std::vector<double> scores2;
-
-    VectorUtility::toScores(vec1, &scores1);
-    VectorUtility::toScores(vec2, &scores2);
-
-    CosineSimilarityCalculator csc;
-    return csc.calculate(scores1, scores2);
+    return similar_paths;
 }
