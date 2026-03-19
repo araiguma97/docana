@@ -33,12 +33,6 @@ public:
     static std::vector<std::vector<std::string>> readCsv(const std::string& file_path);
 
     /**
-     * 文字列リストをCSVファイルに書き込む
-     * @param 書き込む文字列リスト
-     */
-    static void writeCsv(const std::string& file_path, const std::vector<std::vector<std::string>>& values_list);
-
-    /**
      * 文字列を任意の文字で分割する
      * @param str 文字列
      * @param delim 分割する任意の文字
