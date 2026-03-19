@@ -24,6 +24,9 @@ std::vector<std::string> NounExtractor::extractNoun(const std::string& str) {
 }    
 
 bool NounExtractor::isStopWord(const std::vector<std::string>& feature_values) {
+    if (feature_values.size() < 7) {
+        return true;
+    }
     if (feature_values[0] != "名詞") {
         return true;
     }

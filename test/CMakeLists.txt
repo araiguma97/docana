@@ -7,6 +7,9 @@ add_executable(unit_test
     cosine_similarity_calculator_test.cc
     vector_utility_test.cc
     dictionary_generator_test.cc
+    bow_vectorizer_test.cc
+    tfidf_vectorizer_test.cc
+    bm25_vectorizer_test.cc
 )
 target_link_libraries(unit_test docana GTest::GTest GTest::Main)
 include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})

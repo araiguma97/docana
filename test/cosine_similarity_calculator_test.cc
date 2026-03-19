@@ -30,5 +30,34 @@ TEST(CosineSimilarityCalculatorTest, calculate) {
     }
 }
 
+// サイズが異なるベクトルは 2 を返す（エラー値）
+TEST(CosineSimilarityCalculatorTest, MismatchedSizeReturnsTwo) {
+    const std::vector<double> vec1{0.5, 0.5};
+    const std::vector<double> vec2{0.5, 0.5, 0.5};
+
+    CosineSimilarityCalculator csc;
+    EXPECT_DOUBLE_EQ(2.0, csc.calculate(vec1, vec2));
+}
+
+// 空ベクトル同士は 0 を返す
+// NOTE: 現在はゼロ除算により NaN が返る（#29）。このテストは修正後にパスする。
+TEST(CosineSimilarityCalculatorTest, ZeroVectorReturnsZero) {
+    const std::vector<double> zero{0.0, 0.0, 0.0};
+
+    CosineSimilarityCalculator csc;
+    EXPECT_DOUBLE_EQ(0.0, csc.calculate(zero, zero));
+}
+
+// 片方がゼロベクトルの場合も 0 を返す
+// NOTE: 現在はゼロ除算により NaN が返る（#29）。このテストは修正後にパスする。
+TEST(CosineSimilarityCalculatorTest, OneZeroVectorReturnsZero) {
+    const std::vector<double> vec{0.5, 0.5};
+    const std::vector<double> zero{0.0, 0.0};
+
+    CosineSimilarityCalculator csc;
+    EXPECT_DOUBLE_EQ(0.0, csc.calculate(vec, zero));
+    EXPECT_DOUBLE_EQ(0.0, csc.calculate(zero, vec));
+}
+
 }  // namespace
 

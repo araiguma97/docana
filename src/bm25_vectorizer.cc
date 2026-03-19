@@ -35,9 +35,12 @@ double Bm25Vectorizer::calculate(const std::string& term, const size_t term_cnt,
     }
     double idf_numerator   = corpus_num - df + 0.5;
     double idf_denominator = df + 0.5;
-    double idf = std::log(idf_numerator / idf_denominator);
-    if (idf < 0.0) {
-        idf = 0.0;
+    double idf = 0.0;
+    if (idf_numerator > 0.0) {
+        idf = std::log(idf_numerator / idf_denominator);
+        if (idf < 0.0) {
+            idf = 0.0;
+        }
     }
 
     // BM25の計算
