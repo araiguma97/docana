@@ -53,21 +53,6 @@ std::vector<std::vector<std::string>> TextFileUtility::readCsv(const std::string
     return values_list;
 }
 
-void TextFileUtility::writeCsv(const std::string& file_path,
-                               const std::vector<std::vector<std::string>>& values_list) {
-    std::string text;
-
-    std::ofstream file(file_path);
-
-    for (auto values : values_list) {
-        for (auto value : values) {
-            file << value << ",";
-        }
-        file << std::endl;
-    }
-
-    file.close();
-}
 
 std::vector<std::string> TextFileUtility::split(const std::string& str, const char delim) {
     std::vector<std::string> values;
