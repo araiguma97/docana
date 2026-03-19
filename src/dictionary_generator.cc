@@ -73,7 +73,12 @@ bool DictionaryGenerator::read(std::map<std::string, int>* dict) {
         if (dict_values.size() < 2) {
             continue;
         }
-        (*dict)[dict_values[0]] = std::stoi(dict_values[1]);
+        try {
+            (*dict)[dict_values[0]] = std::stoi(dict_values[1]);
+        } catch (const std::invalid_argument&) {
+            std::cerr << "[WARNING] Invalid value in dictionary: " << dict_values[1] << std::endl;
+            continue;
+        }
     }
 
     return true;

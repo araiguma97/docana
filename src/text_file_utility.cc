@@ -21,8 +21,6 @@ std::string TextFileUtility::read(const std::string& file_path) {
 }
 
 std::vector<std::string> TextFileUtility::readLineByLine(const std::string& file_path) {
-    std::string text;
-
     std::ifstream file(file_path, std::ios::in);
     if (! file) {
         return std::vector<std::string>();
@@ -37,8 +35,6 @@ std::vector<std::string> TextFileUtility::readLineByLine(const std::string& file
 }
 
 std::vector<std::vector<std::string>> TextFileUtility::readCsv(const std::string& file_path) {
-    std::string text;
-
     std::ifstream file(file_path, std::ios::in);
     if (! file) {
         return std::vector<std::vector<std::string>>();
