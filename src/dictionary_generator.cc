@@ -24,7 +24,7 @@ bool DictionaryGenerator::generate() {
     std::cout << "Converting corpus to dictionary..." << std::endl;
     std::map<std::string, int> dict;
     int corpus_num = 0;
-    int sum_dl = 0;
+    long long sum_dl = 0;
     NounExtractor ne;
     for (const auto& corpus_path : corpus_paths) {
         std::string corpus_text = TextFileUtility::read(corpus_path);
@@ -41,7 +41,7 @@ bool DictionaryGenerator::generate() {
         corpus_num++;
     }
     dict["$corpus_num"] = corpus_num;
-    dict["$sum_dl"]     = sum_dl;
+    dict["$sum_dl"]     = static_cast<int>(sum_dl);
 
     // 辞書書き出し
     std::cout << "Write dictionary..." << std::endl;
@@ -69,7 +69,10 @@ bool DictionaryGenerator::read(std::map<std::string, int>* dict) {
         return false;
     }
 
-    for (auto dict_values : dict_values_list) {
+    for (const auto& dict_values : dict_values_list) {
+        if (dict_values.size() < 2) {
+            continue;
+        }
         (*dict)[dict_values[0]] = std::stoi(dict_values[1]);
     }
 

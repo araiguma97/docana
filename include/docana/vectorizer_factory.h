@@ -30,7 +30,7 @@ public:
         case VectorizerType::Bm25:
             return std::make_unique<Bm25Vectorizer>(dict, noun_extractor);
         default:
-            return nullptr;
+            throw std::invalid_argument("Unknown VectorizerType");
         }
     }
 };

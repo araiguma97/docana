@@ -56,7 +56,7 @@ std::vector<std::string> VectorUtility::toTerms(const std::vector<DocumentElemen
     terms.reserve(vec.size());
 
     size_t cnt = 0;
-    for (DocumentElement ele : vec) {
+    for (const auto& ele : vec) {
         if (cnt >= size) {
             return terms;
         }
@@ -71,7 +71,7 @@ std::vector<double> VectorUtility::toScores(const std::vector<DocumentElement>& 
     std::vector<double> scores;
     scores.reserve(vec.size());
 
-    for (DocumentElement ele : vec) {
+    for (const auto& ele : vec) {
         scores.push_back(ele.score);
     }
 
@@ -79,7 +79,7 @@ std::vector<double> VectorUtility::toScores(const std::vector<DocumentElement>& 
 }
 
 bool VectorUtility::contains(const std::string& term, const std::vector<DocumentElement>& vec) {
-    for (auto ele : vec) {
+    for (const auto& ele : vec) {
         if (term == ele.term) {
             return true;
         }

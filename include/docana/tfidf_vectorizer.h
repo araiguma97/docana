@@ -14,6 +14,6 @@ class TfidfVectorizer : public Vectorizer {
 public:
     TfidfVectorizer(const std::map<std::string, int>& dict, NounExtractor& noun_extractor)
         : Vectorizer(dict, noun_extractor) {}
-private:
+protected:
     double calculate(const std::string& term, const size_t term_cnt, const size_t total_term_num) override;
 };

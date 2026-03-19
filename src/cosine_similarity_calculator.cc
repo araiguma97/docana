@@ -24,6 +24,9 @@ double CosineSimilarityCalculator::calculate(const std::vector<double>& vec1, co
 
     denominator = std::sqrt(sum_sq1) * std::sqrt(sum_sq2);
 
+    if (denominator == 0.0) {
+        return 0.0;
+    }
     return numerator / denominator;
 }
 
