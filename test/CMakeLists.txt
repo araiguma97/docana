@@ -14,5 +14,5 @@ add_executable(unit_test
 target_link_libraries(unit_test docana GTest::GTest GTest::Main)
 include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
 
-gtest_add_tests(TARGET unit_test)
+gtest_add_tests(TARGET unit_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
