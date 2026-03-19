@@ -19,15 +19,16 @@ enum class VectorizerType {
 
 class VectorizerFactory {
 public:
-    // メインの生成メソッド (Enumを受け取る)
-    static std::unique_ptr<Vectorizer> create(VectorizerType type) {
+    static std::unique_ptr<Vectorizer> create(VectorizerType type,
+                                              const std::map<std::string, int>& dict,
+                                              NounExtractor& noun_extractor) {
         switch (type) {
         case VectorizerType::Bow:
-            return std::make_unique<BowVectorizer>();
+            return std::make_unique<BowVectorizer>(dict, noun_extractor);
         case VectorizerType::TfIdf:
-            return std::make_unique<TfidfVectorizer>();
+            return std::make_unique<TfidfVectorizer>(dict, noun_extractor);
         case VectorizerType::Bm25:
-            return std::make_unique<Bm25Vectorizer>();
+            return std::make_unique<Bm25Vectorizer>(dict, noun_extractor);
         default:
             return nullptr;
         }

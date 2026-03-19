@@ -6,6 +6,7 @@
 
 #include "docana/document_analyzer.h"
 #include "docana/dictionary_generator.h"
+#include "docana/noun_extractor.h"
 #include "docana/text_file_utility.h"
 #include "docana/vectorizer_factory.h"
 
@@ -17,7 +18,11 @@ public:
 };
 
 void DocanaSample::printTerm(const std::string doc_path) {
-    auto vectorizer = VectorizerFactory::create(VectorizerType::Bm25);
+    std::map<std::string, int> dict;
+    DictionaryGenerator dg;
+    dg.read(&dict);
+    NounExtractor ne;
+    auto vectorizer = VectorizerFactory::create(VectorizerType::Bm25, dict, ne);
     DocumentAnalyzer da(std::move(vectorizer));
 
     std::string doc_text = TextFileUtility::read(doc_path);
@@ -29,7 +34,11 @@ void DocanaSample::printTerm(const std::string doc_path) {
 }
 
 void DocanaSample::printSimilarDocuments(const std::string doc_path) {
-    auto vectorizer = VectorizerFactory::create(VectorizerType::Bm25);
+    std::map<std::string, int> dict;
+    DictionaryGenerator dg;
+    dg.read(&dict);
+    NounExtractor ne;
+    auto vectorizer = VectorizerFactory::create(VectorizerType::Bm25, dict, ne);
     DocumentAnalyzer da(std::move(vectorizer));
 
     std::string doc_text = TextFileUtility::read(doc_path);
