@@ -1,0 +1,10 @@
+corpus/hana.txt
+corpus/tebukuro.txt
+corpus/momotaro.txt
+corpus/rashomon.txt
+corpus/kumo_no_ito.txt
+corpus/yabu_no_naka.txt
+corpus/hashire_merosu.txt
+corpus/toshishun.txt
+corpus/chumon_no_ooi.txt
+corpus/gon_gitsune.txt
