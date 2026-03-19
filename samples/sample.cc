@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -5,6 +6,7 @@
 
 #include "docana/document_analyzer.h"
 #include "docana/dictionary_generator.h"
+#include "docana/text_file_utility.h"
 #include "docana/vectorizer_factory.h"
 
 class DocanaSample {
@@ -18,10 +20,11 @@ void DocanaSample::printTerm(const std::string doc_path) {
     auto vectorizer = VectorizerFactory::create(VectorizerType::Bm25);
     DocumentAnalyzer da(std::move(vectorizer));
 
-    std::vector<std::string> terms = da.extractTerm(doc_path, 10);
+    std::string doc_text = TextFileUtility::read(doc_path);
+    std::vector<std::string> terms = da.extractTerm(doc_text, 10);
 
-    for (auto term : terms) {
-        std::cout << term << " "; 
+    for (const auto& term : terms) {
+        std::cout << term << " ";
     }
 }
 
@@ -29,14 +32,22 @@ void DocanaSample::printSimilarDocuments(const std::string doc_path) {
     auto vectorizer = VectorizerFactory::create(VectorizerType::Bm25);
     DocumentAnalyzer da(std::move(vectorizer));
 
-    std::vector<std::string> target_paths;
-    for (const auto& entry : std::filesystem::directory_iterator("doc")) {
-        target_paths.push_back(entry.path().string());
-    }
-    std::vector<std::string> similar_paths = da.findSimilarDocuments(doc_path, target_paths);
+    std::string doc_text = TextFileUtility::read(doc_path);
 
-    for (auto similar_path : similar_paths) {
-        std::cout << similar_path << std::endl; 
+    std::vector<std::pair<double, std::string>> scores;
+    for (const auto& entry : std::filesystem::directory_iterator("doc")) {
+        std::string target_path = entry.path().string();
+        std::string target_text = TextFileUtility::read(target_path);
+        double score = da.calculateSimilarity(doc_text, target_text);
+        scores.emplace_back(score, target_path);
+    }
+
+    std::sort(scores.begin(), scores.end(), [](const auto& lhs, const auto& rhs) {
+        return lhs.first > rhs.first;
+    });
+
+    for (const auto& score_path : scores) {
+        std::cout << score_path.second << std::endl;
     }
 }
 
