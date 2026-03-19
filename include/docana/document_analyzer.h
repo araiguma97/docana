@@ -19,19 +19,19 @@ public:
 
     /**
      * 文書の特徴語を抽出する
-     * @param doc_path 文書のパス
+     * @param doc_text 文書のテキスト
      * @param size     抽出する特徴語の数
      * @return 特徴語一覧
      */
-    std::vector<std::string> extractTerm(const std::string& doc_path, const size_t size);
+    std::vector<std::string> extractTerm(const std::string& doc_text, const size_t size);
 
     /**
-     * 似ている文書を探す
-     * @param doc_path 文書のパス
-     * @param target_paths 探索対象とするパス群
-     * @return 似ている順にソートされたパス群
+     * 2つの文書間の類似度を計算する
+     * @param doc_text1 文書1のテキスト
+     * @param doc_text2 文書2のテキスト
+     * @return コサイン類似度
      */
-    std::vector<std::string> findSimilarDocuments(const std::string& doc_path, const std::vector<std::string>& target_paths);
+    double calculateSimilarity(const std::string& doc_text1, const std::string& doc_text2);
 
 private:
     std::unique_ptr<Vectorizer> vectorizer_;

@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "document_element.h"
-#include "documents_pair.h"
 
 /**
  * 文書ベクトルに関する便利クラス。
@@ -21,7 +20,6 @@ public:
      */
     static std::vector<std::string> unique(const std::vector<std::string>& vec);
     static std::vector<DocumentElement> unique(const std::vector<DocumentElement>& vec);
-    static std::vector<DocumentsPair> unique(const std::vector<DocumentsPair>& vec);
 
     /**
      * 2つの文書ベクトルを共通化する。

@@ -6,7 +6,6 @@
 #include <utility>
 
 #include "docana/document_element.h"
-#include "docana/documents_pair.h"
 
 std::vector<std::string> VectorUtility::unique(const std::vector<std::string>& vec) {
     std::vector<std::string> unique_vec = vec;
@@ -24,14 +23,6 @@ std::vector<DocumentElement> VectorUtility::unique(const std::vector<DocumentEle
     return unique_vec;
 }
 
-std::vector<DocumentsPair> VectorUtility::unique(const std::vector<DocumentsPair>& vec) {
-    std::vector<DocumentsPair> unique_vec = vec;
-    std::sort(unique_vec.begin(), unique_vec.end(), [](const DocumentsPair &lhs, const DocumentsPair &rhs) {
-        return lhs.doc_path2 < rhs.doc_path2;
-    });
-    unique_vec.erase(std::unique(unique_vec.begin(), unique_vec.end()), unique_vec.end());
-    return unique_vec;
-}
 
 std::pair<std::vector<DocumentElement>, std::vector<DocumentElement>>
 VectorUtility::commonalize(const std::vector<DocumentElement>& vec1, const std::vector<DocumentElement>& vec2) {
