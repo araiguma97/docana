@@ -1,5 +1,6 @@
 #include "docana/vector_utility.h"
 
+#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>
