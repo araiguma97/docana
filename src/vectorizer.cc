@@ -5,21 +5,16 @@
 #include <iostream>
 
 #include "docana/document_element.h"
-#include "docana/noun_extractor.h"
-#include "docana/dictionary_generator.h"
 #include "docana/vector_utility.h"
 
-Vectorizer::Vectorizer() {
-    DictionaryGenerator dg;
-    dg.read(&dict_);
-}
+Vectorizer::Vectorizer(const std::map<std::string, int>& dict, NounExtractor& noun_extractor)
+    : dict_(dict), noun_extractor_(noun_extractor) {}
 
 std::vector<DocumentElement> Vectorizer::vectorize(const std::string& doc_text) {
     std::vector<DocumentElement> doc_vec;
 
     // 文書から単語を取得
-    NounExtractor ne;
-    std::vector<std::string> doc_terms = ne.extractNoun(doc_text);
+    std::vector<std::string> doc_terms = noun_extractor_.extractNoun(doc_text);
     if (doc_terms.empty()) {
         return doc_vec;
     }
